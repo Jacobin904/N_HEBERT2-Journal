@@ -3,241 +3,255 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📰 N_HEBERT2 — Journal en ligne</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📰</text></svg>">
+<title>N_HEBERT2 — Journal en ligne</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23b31226'/><text x='32' y='44' font-family='Arial' font-size='30' font-weight='bold' fill='white' text-anchor='middle'>N2</text></svg>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#101418; --paper:#f6f2ea; --card:#fffdf8; --red:#c8102e; --red-d:#8f0b20;
-  --blue:#14417b; --gold:#f2b705; --line:#d8d2c4; --mut:#5c584f;
-  --disp:'Oswald',sans-serif; --body:'Public Sans',sans-serif; --serif:'Newsreader',serif;
+  --bg:#f7f7f5; --card:#ffffff; --ink:#16181d; --mut:#68707c; --line:#e4e2dc;
+  --red:#b31226; --red-d:#8a0e1d; --ok:#2f7d46; --warn:#9a7b00; --dark:#14161b;
+  --disp:'Archivo',sans-serif; --serif:'Newsreader',serif;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55}
+body{background:var(--bg);color:var(--ink);font-family:var(--disp);font-size:16px;line-height:1.55}
 img{display:block;max-width:100%}
-button{font-family:var(--body);cursor:pointer}
-a{color:var(--blue)}
-.wrap{max-width:1200px;margin:0 auto;padding:0 20px}
-:focus-visible{outline:3px solid var(--red);outline-offset:2px}
+button{font-family:var(--disp);cursor:pointer}
+a{color:var(--ink)}
+.wrap{max-width:1160px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+.ic{display:inline-block;vertical-align:-3px;flex:none}
 
-/* ---- grain / noise ---- */
-#grain{position:fixed;inset:0;z-index:99;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* ---------- topbar ---------- */
+.topbar{background:var(--dark);color:#b9bdc6;font-size:.74rem;letter-spacing:.08em;text-transform:uppercase}
+.tb-in{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 20px}
+.tb-in>span{display:inline-flex;align-items:center;gap:7px}
+#adminBtn{background:none;border:1px solid #3a3f4a;color:#d5d9e0;border-radius:3px;padding:4px 12px;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;display:inline-flex;align-items:center;gap:7px;transition:.2s}
+#adminBtn:hover{border-color:var(--red);color:#fff}
 
-/* ---- topbar ---- */
-.topbar{background:var(--ink);color:#cfc9bc;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
-.tb-in{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:7px 20px}
-.tb-in button{background:none;border:1px solid #4a4a44;color:#e8e2d4;border-radius:3px;padding:3px 10px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;transition:.2s}
-.tb-in button:hover{border-color:var(--gold);color:var(--gold)}
+/* ---------- masthead ---------- */
+.masthead{padding:30px 20px 20px;text-align:center;border-bottom:1px solid var(--ink)}
+.masthead h1{font-weight:800;font-size:clamp(2.4rem,6vw,4rem);letter-spacing:.02em;text-transform:uppercase;line-height:1}
+.masthead h1 .u{color:var(--red)}
+.tagline{display:inline-flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.3em;font-size:.72rem;color:var(--mut);margin-top:8px}
 
-/* ---- masthead ---- */
-.masthead{padding:26px 20px 18px;text-align:center;border-bottom:3px double var(--ink)}
-.masthead h1{font-family:var(--disp);font-weight:700;font-size:clamp(2.6rem,7vw,4.6rem);letter-spacing:.04em;text-transform:uppercase;line-height:1}
-.masthead h1 em{font-style:normal;color:var(--red)}
-.tagline{font-family:var(--disp);text-transform:uppercase;letter-spacing:.34em;font-size:.78rem;color:var(--mut);margin-top:6px}
-
-/* ---- nav ---- */
-#nav{position:sticky;top:0;z-index:50;background:var(--ink);box-shadow:0 2px 0 var(--red)}
+/* ---------- nav ---------- */
+#nav{position:sticky;top:0;z-index:50;background:var(--card);border-bottom:1px solid var(--line)}
 .nav-in{display:flex;align-items:center;justify-content:space-between;position:relative}
-#navLinks{display:flex;flex-wrap:wrap;justify-content:center}
-#navLinks a{color:#e8e2d4;text-decoration:none;font-family:var(--disp);text-transform:uppercase;letter-spacing:.09em;font-size:.85rem;padding:13px 13px;border-bottom:3px solid transparent;transition:.2s}
-#navLinks a:hover{color:#fff;border-bottom-color:var(--gold)}
-#navLinks a.on{color:#fff;border-bottom-color:var(--red)}
-#navLinks a.nav-sell{color:var(--gold)}
-#burger{display:none;background:none;border:none;color:#fff;font-size:1.5rem;padding:10px 16px}
+#navLinks{display:flex;flex-wrap:wrap;justify-content:center;width:100%}
+#navLinks a{color:var(--ink);text-decoration:none;text-transform:uppercase;letter-spacing:.08em;font-size:.8rem;font-weight:600;padding:14px 13px;border-bottom:2px solid transparent;transition:.2s;display:inline-flex;align-items:center;gap:7px}
+#navLinks a:hover{color:var(--red)}
+#navLinks a.on{border-bottom-color:var(--red);color:var(--red)}
+#navLinks a.nav-sell{color:var(--red)}
+#burger{display:none;background:none;border:none;color:var(--ink);padding:12px 16px}
 
-/* ---- ticker ---- */
-.ticker{display:flex;align-items:stretch;background:var(--red);color:#fff;overflow:hidden}
-.tk-badge{background:var(--ink);font-family:var(--disp);font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.78rem;display:flex;align-items:center;padding:8px 14px;white-space:nowrap}
-.tk-badge i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:8px;animation:blink 1.2s infinite}
+/* ---------- ticker ---------- */
+.ticker{display:flex;align-items:stretch;background:var(--dark);color:#e6e8ee;overflow:hidden}
+.tk-badge{background:var(--red);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.72rem;display:flex;align-items:center;gap:8px;padding:9px 14px;white-space:nowrap}
+.tk-badge .dot{width:7px;height:7px;border-radius:50%;background:#fff;animation:blink 1.2s infinite}
 @keyframes blink{50%{opacity:.25}}
 .tk-view{overflow:hidden;flex:1;display:flex;align-items:center}
-.tk-track{display:flex;gap:3rem;white-space:nowrap;padding:8px 0;font-family:var(--disp);text-transform:uppercase;letter-spacing:.08em;font-size:.85rem;animation:tick 38s linear infinite;width:max-content}
+.tk-track{display:flex;gap:3rem;white-space:nowrap;padding:9px 0;text-transform:uppercase;letter-spacing:.08em;font-size:.78rem;font-weight:500;animation:tick 42s linear infinite;width:max-content}
 .ticker:hover .tk-track{animation-play-state:paused}
 @keyframes tick{to{transform:translateX(-50%)}}
 
-/* ---- sections ---- */
+/* ---------- sections ---------- */
 .sec{padding:64px 20px}
-.kicker{font-family:var(--disp);color:var(--red);text-transform:uppercase;letter-spacing:.3em;font-size:.75rem;font-weight:600}
-.sec-title{font-family:var(--disp);text-transform:uppercase;font-size:clamp(1.7rem,4vw,2.6rem);font-weight:600;letter-spacing:.02em;border-top:3px solid var(--ink);border-bottom:1px solid var(--ink);padding:8px 0;margin:6px 0 26px;display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
-.sec-title small{font-size:.8rem;font-family:var(--body);text-transform:none;letter-spacing:0;color:var(--mut);font-weight:400}
+.kicker{display:inline-flex;align-items:center;gap:8px;color:var(--red);text-transform:uppercase;letter-spacing:.24em;font-size:.72rem;font-weight:700}
+.sec-title{font-size:clamp(1.6rem,3.6vw,2.4rem);font-weight:800;text-transform:uppercase;letter-spacing:.01em;border-top:2px solid var(--ink);padding-top:10px;margin:8px 0 28px;display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+.sec-title small{font-size:.82rem;font-weight:500;text-transform:none;letter-spacing:0;color:var(--mut)}
 .lm{overflow:hidden}
-.lm .lm-in{display:inline-block;transform:translateY(120%);transition:transform .9s cubic-bezier(.2,.7,.2,1)}
+.lm .lm-in{display:inline-block;transform:translateY(120%);transition:transform .8s cubic-bezier(.2,.7,.2,1)}
 .lm.in .lm-in{transform:translateY(0)}
-.rv{opacity:0;transform:translateY(20px);transition:opacity .7s ease var(--d,0ms),transform .7s ease var(--d,0ms)}
+.rv{opacity:0;transform:translateY(16px);transition:opacity .6s ease var(--d,0ms),transform .6s ease var(--d,0ms)}
 .rv.in{opacity:1;transform:none}
 
-/* ---- photos placeholder art ---- */
-.ph{position:relative;overflow:hidden;background:#222;min-height:190px}
-.ph-art{position:absolute;inset:0;display:grid;place-items:center;font-size:60px;transition:transform .6s ease}
+/* ---------- placeholders photo ---------- */
+.ph{position:relative;overflow:hidden;background:#2a2e35;min-height:190px}
+.ph-art{position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.42);transition:transform .6s ease}
 .ph-art img{width:100%;height:100%;object-fit:cover}
-.ph::after{content:'';position:absolute;inset:0;pointer-events:none;
-  background:repeating-linear-gradient(0deg,rgba(0,0,0,.07) 0 2px,transparent 2px 5px),radial-gradient(120% 95% at 50% 8%,transparent 42%,rgba(0,0,0,.4))}
-.ph-police{background:linear-gradient(160deg,#0b2a5b,#1d5aa8 50%,#0a1030)}
-.ph-feu{background:linear-gradient(160deg,#5b0b0b,#c8102e 52%,#2a0505)}
-.ph-amb{background:linear-gradient(160deg,#0b3d33,#0f7a5c 52%,#062018)}
-.ph-fest{background:linear-gradient(160deg,#3b0f4d,#a1246c 55%,#160425)}
-.ph-comm{background:linear-gradient(160deg,#4d2c0f,#c07a1f 55%,#201004)}
-.ph-sec{background:linear-gradient(160deg,#1c2530,#4a5a6a 55%,#0c1116)}
-.kb .ph-art{animation:kb 16s ease-in-out infinite alternate}
-@keyframes kb{to{transform:scale(1.12) translate(2%,-2%)}}
-.badge{position:absolute;z-index:2;top:10px;left:10px;background:var(--ink);color:#fff;font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:.68rem;padding:4px 9px;border-left:3px solid var(--red)}
+.ph::after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(120% 95% at 50% 10%,transparent 45%,rgba(0,0,0,.35))}
+.ph-police{background:linear-gradient(160deg,#1d3a66,#122647 60%,#0b1526)}
+.ph-feu{background:linear-gradient(160deg,#7a1a1a,#4d1010 60%,#260808)}
+.ph-amb{background:linear-gradient(160deg,#155e4c,#0d3b30 60%,#071f19)}
+.ph-fest{background:linear-gradient(160deg,#5b2a6e,#3a1a47 60%,#1c0c24)}
+.ph-comm{background:linear-gradient(160deg,#8a5a1f,#5c3b14 60%,#2c1c09)}
+.ph-sec{background:linear-gradient(160deg,#3d4a58,#26303a 60%,#12181d)}
+.kb .ph-art{animation:kb 18s ease-in-out infinite alternate}
+@keyframes kb{to{transform:scale(1.1) translate(1.5%,-1.5%)}}
+.badge{position:absolute;z-index:2;top:10px;left:10px;background:rgba(20,22,27,.88);color:#fff;display:inline-flex;align-items:center;gap:6px;text-transform:uppercase;letter-spacing:.1em;font-size:.64rem;font-weight:700;padding:5px 9px;border-left:2px solid var(--red)}
 
-/* ---- front page ---- */
-.front{display:grid;grid-template-columns:8fr 4fr;gap:26px;padding-top:34px}
-.lead{border:1px solid var(--ink);background:var(--card);box-shadow:6px 6px 0 rgba(16,20,24,.15)}
-.lead .ph{min-height:340px}
-.lead:hover .ph-art{transform:scale(1.04)}
-.lead-b{padding:20px 22px 24px}
-.lead-b h2{font-family:var(--disp);font-size:clamp(1.5rem,3.4vw,2.3rem);text-transform:uppercase;line-height:1.12;font-weight:600}
-.lead-b h2 span{background:linear-gradient(var(--gold),var(--gold)) no-repeat 0 88%/0 32%;transition:background-size 1.2s .3s}
-.in .lead-b h2 span, .lead-b:hover h2 span{background-size:100% 32%}
-.meta{color:var(--mut);font-size:.8rem;margin:8px 0}
-.lead-x{font-family:var(--serif);font-size:1.05rem;line-height:1.65}
-.rail{display:flex;flex-direction:column;gap:20px}
-.rail-box{border:1px solid var(--ink);background:var(--card);padding:16px 18px}
-.rail-box h4{font-family:var(--disp);text-transform:uppercase;letter-spacing:.12em;font-size:.9rem;border-bottom:2px solid var(--red);padding-bottom:6px;margin-bottom:10px}
-.brief{padding:8px 0;border-bottom:1px dashed var(--line);font-size:.88rem}
+/* ---------- une ---------- */
+.front{display:grid;grid-template-columns:8fr 4fr;gap:26px;padding-top:36px}
+.lead{border:1px solid var(--line);background:var(--card);position:relative}
+.lead .ph{min-height:360px}
+.lead:hover .ph-art{transform:scale(1.03)}
+.lead-b{padding:22px 24px 26px}
+.lead-b h2{font-size:clamp(1.4rem,3vw,2.1rem);font-weight:800;text-transform:uppercase;line-height:1.15;margin-top:8px}
+.lead-b h2 span{background:linear-gradient(var(--line),var(--line)) no-repeat 0 92%/0 40%;transition:background-size 1s .2s}
+.lead-b:hover h2 span,.in .lead-b h2 span{background-size:100% 40%}
+.meta{display:flex;flex-wrap:wrap;gap:14px;color:var(--mut);font-size:.78rem;margin:10px 0}
+.meta span{display:inline-flex;align-items:center;gap:6px}
+.lead-x{font-family:var(--serif);font-size:1.05rem;line-height:1.7;color:#33363c}
+.rail{display:flex;flex-direction:column;gap:18px}
+.rail-box{border:1px solid var(--line);background:var(--card);padding:18px 20px}
+.rail-box h4{display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;font-weight:700;border-bottom:2px solid var(--red);padding-bottom:8px;margin-bottom:10px}
+.brief{padding:9px 0;border-bottom:1px solid var(--line);font-size:.86rem;font-weight:600;display:flex;gap:9px;align-items:baseline}
 .brief:last-child{border:none}
-.pop{display:flex;gap:12px;align-items:baseline;padding:7px 0;border-bottom:1px dashed var(--line);font-size:.88rem}
+.brief .ic{color:var(--red)}
+.pop{display:flex;gap:14px;align-items:baseline;padding:8px 0;border-bottom:1px solid var(--line);font-size:.86rem;font-weight:600}
 .pop:last-child{border:none}
-.pop b{font-family:var(--disp);font-size:1.5rem;color:var(--red);line-height:1}
+.pop b{font-size:1.4rem;font-weight:800;color:var(--red);line-height:1;min-width:20px}
 
-/* ---- news grid ---- */
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
-.chip{border:1px solid var(--ink);background:var(--card);border-radius:999px;padding:6px 14px;font-size:.8rem;font-weight:600;transition:.2s}
-.chip:hover{transform:translateY(-2px);box-shadow:3px 3px 0 rgba(16,20,24,.2)}
+/* ---------- boutons ---------- */
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;border:1px solid var(--red-d);padding:12px 20px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;font-size:.76rem;border-radius:2px;transition:.2s}
+.btn:hover{background:var(--red-d);transform:translateY(-1px)}
+.btn.dark{background:var(--ink);border-color:var(--ink)}
+.btn.dark:hover{background:#000}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--ink)}
+.btn.ghost:hover{background:var(--ink);color:#fff}
+.btn-line{display:inline-flex;align-items:center;gap:7px;background:none;border:none;color:var(--red);font-weight:700;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;padding:0;border-bottom:1px solid var(--red);transition:.2s}
+.btn-line:hover{gap:11px;color:var(--red-d)}
+
+/* ---------- actualites ---------- */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:24px}
+.chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:999px;padding:7px 14px;font-size:.76rem;font-weight:600;color:var(--mut);transition:.2s}
+.chip:hover{border-color:var(--ink);color:var(--ink)}
 .chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.card{border:1px solid var(--ink);background:var(--card);display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s;position:relative}
-.card:hover{transform:translate(-3px,-3px);box-shadow:6px 6px 0 rgba(200,16,46,.25)}
+.news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{border:1px solid var(--line);background:var(--card);display:flex;flex-direction:column;position:relative;transition:.25s}
+.card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,22,27,.1)}
 .card-wide{grid-column:span 2}
 .card .ph{min-height:180px}
-.card:hover .ph-art{transform:scale(1.06)}
-.card-b{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
-.card-b h3{font-family:var(--disp);font-size:1.12rem;text-transform:uppercase;line-height:1.2;font-weight:600}
-.ex{font-family:var(--serif);font-size:.92rem;color:#3c382f;flex:1}
-.btn-line{background:none;border:none;color:var(--red);font-weight:700;font-size:.82rem;text-transform:uppercase;letter-spacing:.08em;padding:0;text-align:left;border-bottom:2px solid var(--red);width:max-content;transition:.2s}
-.btn-line:hover{color:var(--red-d);letter-spacing:.12em}
+.card:hover .ph-art{transform:scale(1.05)}
+.card-b{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card-b h3{font-size:1.02rem;font-weight:700;text-transform:uppercase;line-height:1.25}
+.ex{font-family:var(--serif);font-size:.92rem;color:#43464c;flex:1}
 
-/* ---- gallery ---- */
-.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.gtile{position:relative;border:1px solid var(--ink);overflow:hidden;cursor:zoom-in;aspect-ratio:1}
+/* ---------- galerie ---------- */
+.gal{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gtile{position:relative;border:1px solid var(--line);overflow:hidden;cursor:zoom-in;aspect-ratio:1;background:var(--card)}
 .gtile .ph{min-height:100%;height:100%}
-.gtile:hover .ph-art{transform:scale(1.08)}
-.gcap{position:absolute;z-index:2;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(10,10,10,.9));color:#fff;padding:26px 10px 8px;font-size:.78rem;transform:translateY(30%);transition:.35s}
-.gtile:hover .gcap{transform:none}
-.glic{position:absolute;z-index:3;top:8px;right:8px;background:var(--gold);border:none;border-radius:3px;padding:4px 8px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.05em;opacity:0;transition:.25s}
-.gtile:hover .glic{opacity:1}
+.gtile:hover .ph-art{transform:scale(1.07)}
+.gcap{position:absolute;z-index:2;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(10,10,12,.92));color:#fff;padding:30px 12px 10px;font-size:.76rem;font-weight:600;transform:translateY(25%);opacity:.9;transition:.3s}
+.gtile:hover .gcap{transform:none;opacity:1}
+.glic{position:absolute;z-index:3;top:8px;right:8px;display:inline-flex;align-items:center;gap:6px;background:#fff;border:none;border-radius:2px;padding:6px 9px;font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);opacity:0;transition:.25s}
+.gtile:hover .glic,.gtile:focus-within .glic{opacity:1}
+.glic:hover{background:var(--red);color:#fff}
 
-/* ---- urgence (dark) ---- */
-.sec-dark{background:var(--ink);color:#e8e2d4;padding:64px 0}
-.sec-dark .sec-title{border-color:#e8e2d4}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
-.tab{background:none;border:1px solid #4a4a44;color:#cfc9bc;font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;padding:9px 18px;transition:.2s}
-.tab:hover{border-color:var(--gold);color:var(--gold)}
+/* ---------- urgence ---------- */
+.sec-dark{background:var(--dark);color:#dfe2e8;padding:64px 0}
+.sec-dark .sec-title{border-color:#dfe2e8}
+.sec-dark .sec-title small{color:#9aa0ab}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:26px}
+.tab{display:inline-flex;align-items:center;gap:8px;background:none;border:1px solid #3a3f4a;color:#b9bdc6;text-transform:uppercase;letter-spacing:.1em;font-size:.78rem;font-weight:600;padding:10px 16px;transition:.2s;border-radius:2px}
+.tab:hover{border-color:#fff;color:#fff}
 .tab.on{background:var(--red);border-color:var(--red);color:#fff}
-.tab-panel{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:start}
-.tab-panel p{font-family:var(--serif);font-size:1.02rem;line-height:1.7;color:#d9d3c5}
-.strip{display:flex;gap:12px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
-.strip .ph{min-width:200px;height:140px;border:1px solid #333;scroll-snap-align:start}
-.dispatch{font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--gold);margin-bottom:10px}
-.dispatch i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--red);margin-right:8px;animation:blink 1s infinite}
+.tab-panel{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+.tab-panel p{font-family:var(--serif);font-size:1rem;line-height:1.7;color:#c6cad2}
+.dispatch{display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.16em;font-size:.7rem;font-weight:700;color:#ff8d97;margin-bottom:12px}
+.dispatch .dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:blink 1s infinite}
+.strip{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scroll-snap-type:x mandatory}
+.strip .ph{min-width:200px;height:140px;border:1px solid #2c313a;scroll-snap-align:start}
 
-/* ---- events ---- */
-.ev-list{display:flex;flex-direction:column;gap:12px}
-.ev{display:grid;grid-template-columns:86px 1fr auto;gap:18px;align-items:center;border:1px solid var(--ink);background:var(--card);padding:12px 18px;transition:.25s}
-.ev:hover{transform:translateX(6px);border-left:5px solid var(--red)}
-.ev-d{text-align:center;border-right:1px dashed var(--line);padding-right:14px}
-.ev-d b{font-family:var(--disp);font-size:2rem;line-height:1;display:block}
-.ev-d span{font-family:var(--disp);text-transform:uppercase;letter-spacing:.2em;font-size:.72rem;color:var(--red)}
-.ev h3{font-family:var(--disp);text-transform:uppercase;font-size:1.05rem;font-weight:600}
-.ev p{font-size:.82rem;color:var(--mut)}
-.st{font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:5px 10px;border-radius:999px;white-space:nowrap}
-.st.ok{background:#e2f2e4;color:#1c6b2f;border:1px solid #1c6b2f}
-.st.tbc{background:#fdf3d7;color:#8a6d00;border:1px solid #b99400}
+/* ---------- evenements ---------- */
+.ev-list{display:flex;flex-direction:column;gap:10px}
+.ev{display:grid;grid-template-columns:84px 1fr auto;gap:18px;align-items:center;border:1px solid var(--line);background:var(--card);padding:14px 18px;transition:.2s;position:relative}
+.ev:hover{border-left:3px solid var(--red);transform:translateX(4px)}
+.ev-d{text-align:center;border-right:1px solid var(--line);padding-right:14px}
+.ev-d b{font-size:1.9rem;font-weight:800;line-height:1;display:block}
+.ev-d span{text-transform:uppercase;letter-spacing:.2em;font-size:.68rem;color:var(--red);font-weight:700}
+.ev h3{font-size:.98rem;font-weight:700;text-transform:uppercase}
+.ev p{font-size:.8rem;color:var(--mut);display:flex;gap:14px;flex-wrap:wrap;margin-top:3px}
+.ev p span{display:inline-flex;align-items:center;gap:6px}
+.st{display:inline-flex;align-items:center;gap:7px;font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:6px 11px;border-radius:999px;white-space:nowrap}
+.st.ok{background:#e8f3eb;color:var(--ok);border:1px solid var(--ok)}
+.st.tbc{background:#faf3dc;color:var(--warn);border:1px solid var(--warn)}
 
-/* ---- interviews : cartes éparpillées ---- */
-.int-row{display:flex;gap:20px;overflow-x:auto;padding:16px 6px 22px;scroll-snap-type:x mandatory}
-.int{min-width:280px;max-width:300px;background:var(--card);border:1px solid var(--ink);padding:26px 18px 18px;position:relative;scroll-snap-align:start;transition:transform .3s}
-.int:nth-child(odd){transform:rotate(-1.6deg)}
-.int:nth-child(even){transform:rotate(1.3deg) translateY(6px)}
-.int:hover{transform:rotate(0) translateY(-4px)}
-.int::before{content:'';position:absolute;top:-10px;left:50%;transform:translateX(-50%) rotate(-2deg);width:90px;height:22px;background:rgba(242,183,5,.75)}
-.int q{font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.55;display:block;margin:10px 0 14px}
-.int .who{font-family:var(--disp);text-transform:uppercase;font-size:.85rem;letter-spacing:.08em}
-.int .role{font-size:.75rem;color:var(--mut)}
-.int .emo{font-size:2rem}
+/* ---------- entrevues ---------- */
+.int-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.int{border:1px solid var(--line);background:var(--card);padding:22px 22px 20px;transition:.25s}
+.int:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(20,22,27,.08)}
+.int .top{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.int .top .ic{color:var(--red)}
+.int .who{font-weight:700;text-transform:uppercase;font-size:.86rem;letter-spacing:.06em}
+.int .role{font-size:.74rem;color:var(--mut)}
+.int q{font-family:var(--serif);font-style:italic;font-size:1.02rem;line-height:1.6;display:block}
 
-/* ---- vendre ---- */
-.sell-grid{display:grid;grid-template-columns:5fr 7fr;gap:30px;align-items:start}
-.sell-pitch{font-family:var(--serif);font-size:1.08rem;line-height:1.7}
-.tarifs{border-top:3px solid var(--ink)}
-.tarif{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--ink);transition:.2s}
+/* ---------- vendre ---------- */
+.sell-grid{display:grid;grid-template-columns:5fr 7fr;gap:34px;align-items:start}
+.sell-pitch{font-family:var(--serif);font-size:1.05rem;line-height:1.7;color:#33363c}
+.sell-list{margin:16px 0;display:grid;gap:8px}
+.sell-list li{list-style:none;display:flex;gap:10px;align-items:center;font-family:var(--disp);font-size:.88rem;font-weight:600}
+.sell-list .ic{color:var(--ok)}
+.tarifs{border-top:2px solid var(--ink)}
+.tarif{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:15px 4px;border-bottom:1px solid var(--line);transition:.2s}
 .tarif:hover{background:var(--card);padding-left:12px}
-.tarif b{font-family:var(--disp);text-transform:uppercase;letter-spacing:.06em;font-size:1rem}
-.tarif span{font-family:var(--disp);font-size:1.2rem;color:var(--red);white-space:nowrap}
-.tarif small{display:block;color:var(--mut);font-size:.78rem}
-.btn{background:var(--red);color:#fff;border:1px solid var(--red-d);padding:13px 22px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;font-size:.8rem;transition:.2s;border-radius:2px}
-.btn:hover{background:var(--red-d);transform:translateY(-2px);box-shadow:4px 4px 0 rgba(16,20,24,.25)}
-.btn.gold{background:var(--gold);color:var(--ink);border-color:#b99400}
+.tarif b{text-transform:uppercase;letter-spacing:.04em;font-size:.92rem}
+.tarif small{display:block;color:var(--mut);font-size:.76rem;font-weight:500}
+.tarif span{font-size:1.05rem;font-weight:800;color:var(--red);white-space:nowrap}
 
-/* ---- à propos : sticky 2 col ---- */
-.about{display:grid;grid-template-columns:4fr 7fr;gap:34px}
+/* ---------- a propos ---------- */
+.about{display:grid;grid-template-columns:4fr 7fr;gap:36px}
 .about-l{position:sticky;top:70px;align-self:start}
-.portrait{border:1px solid var(--ink);background:var(--card);padding:14px;box-shadow:8px 8px 0 rgba(16,20,24,.15)}
+.portrait{border:1px solid var(--line);background:var(--card);padding:14px}
 .portrait .ph{min-height:260px}
-.portrait h3{font-family:var(--disp);text-transform:uppercase;font-size:1.2rem;margin-top:12px}
-.portrait p{font-size:.82rem;color:var(--mut)}
-.facts{margin-top:12px;font-size:.85rem;display:grid;gap:6px}
-.about-r p{font-family:var(--serif);font-size:1.06rem;line-height:1.75;margin-bottom:16px}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0}
-.stat{border:1px solid var(--ink);background:var(--card);text-align:center;padding:16px 8px}
-.stat b{font-family:var(--disp);font-size:1.9rem;color:var(--red);display:block;line-height:1}
-.stat span{font-size:.7rem;text-transform:uppercase;letter-spacing:.1em;color:var(--mut)}
+.portrait h3{font-size:1.1rem;font-weight:800;text-transform:uppercase;margin-top:12px}
+.portrait>p{font-size:.8rem;color:var(--mut)}
+.facts{margin-top:14px;font-size:.84rem;font-weight:600;display:grid;gap:8px}
+.facts span{display:flex;align-items:center;gap:10px}
+.facts .ic{color:var(--red)}
+.about-r p.body{font-family:var(--serif);font-size:1.04rem;line-height:1.75;margin-bottom:16px;color:#33363c}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:26px 0}
+.stat{border:1px solid var(--line);background:var(--card);text-align:center;padding:16px 8px}
+.stat b{font-size:1.7rem;font-weight:800;color:var(--red);display:block;line-height:1.1}
+.stat span{font-size:.66rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mut);font-weight:700}
 
-/* ---- contact ---- */
+/* ---------- contact ---------- */
 .con-grid{display:grid;grid-template-columns:7fr 4fr;gap:30px}
 form .row{margin-bottom:14px}
-label{display:block;font-family:var(--disp);text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;margin-bottom:5px;color:var(--mut)}
-input,select,textarea{width:100%;border:1px solid var(--ink);background:var(--card);padding:11px 12px;font-family:var(--body);font-size:.95rem;border-radius:2px}
+label{display:block;text-transform:uppercase;letter-spacing:.1em;font-size:.7rem;font-weight:700;margin-bottom:6px;color:var(--mut)}
+input,select,textarea{width:100%;border:1px solid var(--line);background:var(--card);padding:11px 12px;font-family:var(--disp);font-size:.92rem;border-radius:2px;color:var(--ink)}
+input:focus,select:focus,textarea:focus{border-color:var(--ink);outline:none}
 textarea{min-height:120px;resize:vertical}
-.con-info{border:1px solid var(--ink);background:var(--ink);color:#e8e2d4;padding:22px}
-.con-info h4{font-family:var(--disp);text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:12px}
-.con-info p{font-size:.88rem;margin-bottom:8px}
+.con-info{border:1px solid var(--ink);background:var(--dark);color:#dfe2e8;padding:24px}
+.con-info h4{display:flex;align-items:center;gap:9px;text-transform:uppercase;letter-spacing:.12em;font-size:.8rem;color:#fff;margin-bottom:14px}
+.con-info p{font-size:.86rem;margin-bottom:9px;display:flex;gap:9px;align-items:center;font-weight:500}
+.con-info .ic{color:#ff8d97}
 
-/* ---- footer ---- */
-footer{background:var(--ink);color:#cfc9bc;margin-top:70px}
-.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:26px;padding:44px 20px}
-.ft h5{font-family:var(--disp);text-transform:uppercase;letter-spacing:.14em;color:#fff;margin-bottom:12px;font-size:.85rem}
-.ft a{color:#cfc9bc;text-decoration:none;display:block;font-size:.85rem;padding:3px 0}
-.ft a:hover{color:var(--gold)}
-.ft-bot{border-top:1px solid #333;padding:14px 20px;text-align:center;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+/* ---------- footer ---------- */
+footer{background:var(--dark);color:#b9bdc6;margin-top:70px}
+.ft{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:26px;padding:46px 20px}
+.ft h5{text-transform:uppercase;letter-spacing:.14em;color:#fff;margin-bottom:12px;font-size:.8rem}
+.ft a{color:#b9bdc6;text-decoration:none;display:block;font-size:.84rem;padding:3px 0;font-weight:500}
+.ft a:hover{color:#fff}
+.ft-bot{border-top:1px solid #2c313a;padding:16px 20px;text-align:center;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase}
 
-/* ---- modal ---- */
-#modal{position:fixed;inset:0;z-index:100;background:rgba(12,12,12,.78);display:grid;place-items:center;padding:20px;overflow:auto}
+/* ---------- modal ---------- */
+#modal{position:fixed;inset:0;z-index:100;background:rgba(12,13,16,.72);display:grid;place-items:center;padding:20px;overflow:auto}
 #modal[hidden]{display:none}
-.m-box{background:var(--card);border:1px solid var(--ink);box-shadow:10px 10px 0 rgba(200,16,46,.35);max-width:760px;width:100%;max-height:88vh;overflow:auto;position:relative;animation:pop .35s cubic-bezier(.2,.9,.3,1.2)}
-@keyframes pop{from{transform:scale(.92) translateY(14px);opacity:0}}
-.m-x{position:sticky;top:0;float:right;margin:10px 10px 0 0;background:var(--ink);color:#fff;border:none;width:36px;height:36px;font-size:1rem;z-index:5}
-.m-in{padding:26px 30px 30px}
-.m-in h3{font-family:var(--disp);text-transform:uppercase;font-size:1.5rem;line-height:1.15;margin-bottom:6px}
-.m-in .ph{min-height:260px;margin:14px 0}
-.m-in .txt p{font-family:var(--serif);font-size:1.02rem;line-height:1.7;margin-bottom:12px}
+.m-box{background:var(--card);border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.4);max-width:760px;width:100%;max-height:88vh;overflow:auto;position:relative;animation:pop .3s cubic-bezier(.2,.9,.3,1.1)}
+@keyframes pop{from{transform:translateY(14px);opacity:0}}
+.m-x{position:sticky;top:10px;float:right;margin:10px 10px 0 0;background:var(--ink);color:#fff;border:none;width:36px;height:36px;z-index:5;border-radius:2px;display:grid;place-items:center}
+.m-x:hover{background:var(--red)}
+.m-in{padding:26px 32px 32px}
+.m-in h3{font-size:1.4rem;font-weight:800;text-transform:uppercase;line-height:1.2;margin-bottom:6px}
+.m-in .ph{min-height:260px;margin:16px 0}
+.m-in .txt p{font-family:var(--serif);font-size:1rem;line-height:1.7;margin-bottom:12px;color:#33363c}
 .m-gal{display:flex;gap:10px;overflow-x:auto;margin:14px 0}
 .m-gal .ph{min-width:150px;height:100px}
 
-/* ---- admin bar ---- */
-#adminBar{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--ink);color:#fff;border:1px solid var(--gold);padding:10px 14px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;box-shadow:0 8px 30px rgba(0,0,0,.4);border-radius:4px}
-#adminBar button{background:var(--gold);border:none;color:var(--ink);font-weight:800;font-size:.75rem;text-transform:uppercase;letter-spacing:.06em;padding:8px 12px;border-radius:3px}
-#adminBar button.quit{background:#444;color:#fff}
-.del{position:absolute;top:8px;right:8px;z-index:5;background:var(--red);color:#fff;border:none;width:28px;height:28px;border-radius:3px;font-size:.8rem}
-#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:#1c6b2f;color:#fff;padding:10px 20px;font-weight:700;border-radius:3px;z-index:120;opacity:0;transition:.3s;pointer-events:none}
+/* ---------- admin ---------- */
+#adminBar{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);z-index:90;background:var(--dark);color:#fff;border:1px solid #3a3f4a;padding:10px 12px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;box-shadow:0 12px 40px rgba(0,0,0,.45);border-radius:4px}
+#adminBar button{display:inline-flex;align-items:center;gap:7px;background:#fff;border:none;color:var(--ink);font-weight:800;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;padding:9px 12px;border-radius:2px}
+#adminBar button:hover{background:var(--red);color:#fff}
+#adminBar button.quit{background:#3a3f4a;color:#fff}
+.del{position:absolute;top:8px;right:8px;z-index:6;background:var(--red);color:#fff;border:none;width:30px;height:30px;border-radius:2px;display:grid;place-items:center}
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 22px;font-weight:700;font-size:.84rem;border-radius:2px;border-left:3px solid var(--red);z-index:120;opacity:0;transition:.3s;pointer-events:none}
 #toast.show{opacity:1}
 
-/* ---- responsive ---- */
+/* ---------- responsive ---------- */
 @media(max-width:960px){
   .front{grid-template-columns:1fr}
   .news-grid{grid-template-columns:repeat(2,1fr)}
@@ -246,165 +260,163 @@ footer{background:var(--ink);color:#cfc9bc;margin-top:70px}
   .about-l{position:static}
   .stats{grid-template-columns:repeat(2,1fr)}
   .ft{grid-template-columns:1fr 1fr}
+  .int-grid{grid-template-columns:1fr}
 }
 @media(max-width:700px){
   #burger{display:block}
-  #navLinks{display:none;position:absolute;top:100%;left:0;right:0;background:var(--ink);flex-direction:column;padding:10px 0 16px;border-bottom:3px solid var(--red)}
+  #navLinks{display:none;position:absolute;top:100%;left:0;right:0;background:var(--card);flex-direction:column;padding:8px 0 14px;border-bottom:2px solid var(--red);box-shadow:0 20px 40px rgba(0,0,0,.12)}
   #navLinks.open{display:flex}
-  #navLinks a{padding:11px 22px}
+  #navLinks a{padding:12px 22px;border-bottom:none;border-left:2px solid transparent}
+  #navLinks a.on{border-left-color:var(--red)}
   .news-grid{grid-template-columns:1fr}
   .gal{grid-template-columns:repeat(2,1fr)}
-  .ev{grid-template-columns:70px 1fr;gap:12px}
+  .ev{grid-template-columns:64px 1fr}
   .ev .st{grid-column:2}
-  .tb-in{font-size:.68rem}
+  .tb-in{font-size:.66rem}
+  .tb-in>span:nth-child(2){display:none}
 }
 @media (prefers-reduced-motion: reduce){
-  *{animation:none!important;transition:none!important;scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
   .tk-view{overflow-x:auto}
   .lm .lm-in,.rv{transform:none!important;opacity:1!important}
 }
 </style>
 </head>
 <body>
-<div id="grain"></div>
 
 <header class="topbar"><div class="wrap tb-in" style="padding-left:0;padding-right:0">
   <span id="todayDate"></span>
-  <span>Édition indépendante — Québec 🇨</span>
-  <button id="adminBtn">🔑 Espace journaliste</button>
+  <span>Édition indépendante — Québec</span>
+  <button id="adminBtn">Espace journaliste</button>
 </div></header>
 
 <div class="masthead wrap">
-  <h1 id="mastTitle">N<em>_</em>HEBERT2</h1>
-  <p class="tagline">Journal en ligne · Actualités · Urgence · Communauté</p>
+  <h1>N<span class="u">_</span>HEBERT2</h1>
+  <p class="tagline" id="tagline">Journal en ligne · Actualités · Urgence · Communauté</p>
 </div>
 
 <nav id="nav"><div class="wrap nav-in" style="padding-left:0;padding-right:0">
-  <button id="burger" aria-label="Ouvrir le menu">☰</button>
+  <button id="burger" aria-label="Ouvrir le menu"></button>
   <div id="navLinks">
     <a href="#accueil" class="on">Accueil</a>
     <a href="#actualites">Actualités</a>
     <a href="#photos">Photographies</a>
-    <a href="#urgence">Urgence</a>
+    <a href="#urgence">Services d'urgence</a>
     <a href="#evenements">Événements</a>
     <a href="#entrevues">Entrevues</a>
     <a href="#apropos">À propos</a>
     <a href="#contact">Contact</a>
-    <a href="#vendre" class="nav-sell">📸 Vendre mes photos</a>
+    <a href="#vendre" class="nav-sell">Vendre mes photos</a>
   </div>
 </div></nav>
 
-<div class="ticker"><span class="tk-badge"><i></i>En direct</span>
+<div class="ticker"><span class="tk-badge"><span class="dot"></span>En direct</span>
   <div class="tk-view"><div class="tk-track" id="tkTrack"></div></div>
 </div>
 
 <main>
-<!-- ============ ACCUEIL / UNE ============ -->
 <section id="accueil" class="wrap front">
   <div id="leadSlot"></div>
   <aside class="rail">
-    <div class="rail-box rv"><h4>🗞️ En bref</h4><div id="briefs"></div></div>
-    <div class="rail-box rv" style="--d:120ms"><h4>⭐ Articles populaires</h4><div id="popular"></div></div>
-    <div class="rail-box rv" style="--d:200ms"><h4>📮 Le coin du lecteur</h4>
-      <p style="font-size:.86rem;margin-bottom:10px">Une nouvelle dans votre quartier? Un événement à couvrir?</p>
-      <button class="btn" data-contact="tip" style="width:100%">Envoyer un tuyau 📬</button>
+    <div class="rail-box rv"><h4 id="hBrief"></h4><div id="briefs"></div></div>
+    <div class="rail-box rv" style="--d:100ms"><h4 id="hPop"></h4><div id="popular"></div></div>
+    <div class="rail-box rv" style="--d:180ms"><h4 id="hTip"></h4>
+      <p style="font-size:.85rem;font-weight:500;color:var(--mut);margin-bottom:12px">Une nouvelle dans votre quartier? Un événement à couvrir? Écrivez-nous.</p>
+      <button class="btn dark" data-contact="tip" style="width:100%">Envoyer un tuyau</button>
     </div>
   </aside>
 </section>
 
-<!-- ============ ACTUALITÉS ============ -->
 <section id="actualites" class="wrap sec">
-  <p class="kicker">📰 Actualités</p>
+  <p class="kicker" id="kNews"></p>
   <h2 class="sec-title lm"><span class="lm-in">Toutes les nouvelles <small>du terrain, partout dans la région</small></span></h2>
   <div class="chips" id="catChips"></div>
   <div class="news-grid" id="newsGrid"></div>
 </section>
 
-<!-- ============ PHOTOS ============ -->
 <section id="photos" class="wrap sec">
-  <p class="kicker">📸 Photographies</p>
+  <p class="kicker" id="kGal"></p>
   <h2 class="sec-title lm"><span class="lm-in">La galerie du journaliste <small>chaque image disponible sous licence</small></span></h2>
   <div class="chips" id="galChips"></div>
   <div class="gal" id="galGrid"></div>
 </section>
 
-<!-- ============ URGENCE ============ -->
 <section id="urgence" class="sec-dark"><div class="wrap">
-  <p class="kicker" style="color:var(--gold)">🚨 Services d'urgence</p>
+  <p class="kicker" id="kUrg" style="color:#ff8d97"></p>
   <h2 class="sec-title lm"><span class="lm-in">Au cœur de l'intervention <small>police · pompiers · ambulanciers · sécurité civile</small></span></h2>
   <div class="tabs" id="urgTabs"></div>
   <div class="tab-panel" id="urgPanel"></div>
 </div></section>
 
-<!-- ============ ÉVÉNEMENTS ============ -->
 <section id="evenements" class="wrap sec">
-  <p class="kicker">🎤 Événements</p>
+  <p class="kicker" id="kEv"></p>
   <h2 class="sec-title lm"><span class="lm-in">Calendrier des couvertures <small>festivals · spectacles · sportif · communautaire</small></span></h2>
   <div class="ev-list" id="evList"></div>
-  <p style="margin-top:18px;font-size:.9rem">👉 Organisateur? <button class="btn-line" data-contact="cover">Demandez une couverture médiatique</button></p>
+  <p style="margin-top:20px;font-size:.9rem;font-weight:500;color:var(--mut)">Organisateur? <button class="btn-line" data-contact="cover">Demandez une couverture médiatique</button></p>
 </section>
 
-<!-- ============ ENTREVUES ============ -->
 <section id="entrevues" class="wrap sec">
-  <p class="kicker">🎙️ Entrevues</p>
+  <p class="kicker" id="kInt"></p>
   <h2 class="sec-title lm"><span class="lm-in">Paroles du terrain <small>celles et ceux qui font la nouvelle</small></span></h2>
-  <div class="int-row" id="intRow"></div>
+  <div class="int-grid" id="intGrid"></div>
 </section>
 
-<!-- ============ VENDRE MES PHOTOS ============ -->
 <section id="vendre" class="wrap sec">
-  <p class="kicker">💼 Section professionnelle</p>
-  <h2 class="sec-title lm"><span class="lm-in">📸 Vendre mes photos <small>médias, organisateurs, entreprises</small></span></h2>
+  <p class="kicker" id="kSell"></p>
+  <h2 class="sec-title lm"><span class="lm-in">Vendre mes photos <small>médias, organisateurs, entreprises</small></span></h2>
   <div class="sell-grid">
     <div class="sell-pitch rv">
-      <p>Chaque reportage publié sur ce journal peut être licencié. Repérez une image, cliquez sur <b>« Acheter / Demander les droits d'utilisation »</b>, et décrivez votre besoin : vous recevez une réponse en 24 à 48 h avec les tarifs et un aperçu filigrané.</p>
-      <p style="margin-top:12px">✔ Fichiers haute résolution · ✔ Livraison rapide · ✔ Facturation simple · ✔ Droits clairs, sans surprise.</p>
-      <button class="btn gold" data-lic="Demande générale de droits d'utilisation" style="margin-top:16px">Acheter / Demander les droits 📸</button>
+      <p>Chaque reportage publié sur ce journal peut être licencié. Repérez une image, cliquez sur « Acheter / Demander les droits d'utilisation », décrivez votre besoin : vous recevez une réponse en 24 à 48 h avec les tarifs et un aperçu filigrané.</p>
+      <ul class="sell-list">
+        <li id="sl1">Fichiers haute résolution</li>
+        <li id="sl2">Livraison rapide, 24 à 48 h</li>
+        <li id="sl3">Droits clairs, entente écrite</li>
+      </ul>
+      <button class="btn" data-lic="Demande générale de droits d'utilisation">Acheter / Demander les droits</button>
     </div>
-    <div class="tarifs rv" style="--d:120ms">
+    <div class="tarifs rv" style="--d:100ms">
       <div class="tarif"><div><b>Usage web / réseaux sociaux</b><small>Blogue, page Facebook, site d'actualité</small></div><span>dès 75 $</span></div>
       <div class="tarif"><div><b>Usage imprimé</b><small>Journal, revue, affiche locale</small></div><span>dès 150 $</span></div>
-      <div class="tarif"><div><b>Usage commercial</b><small>Publicité, commandite, matériel promo</small></div><span>sur devis</span></div>
+      <div class="tarif"><div><b>Usage commercial</b><small>Publicité, commandite, matériel promotionnel</small></div><span>sur devis</span></div>
       <div class="tarif"><div><b>Exclusivité complète</b><small>Transfert des droits, entente écrite</small></div><span>sur devis</span></div>
-      <p style="font-size:.75rem;color:var(--mut);padding-top:10px">Tarifs indicatifs — chaque demande est évaluée selon le mandat.</p>
+      <p style="font-size:.74rem;color:var(--mut);padding-top:10px;font-weight:500">Tarifs indicatifs — chaque demande est évaluée selon le mandat.</p>
     </div>
   </div>
 </section>
 
-<!-- ============ À PROPOS ============ -->
 <section id="apropos" class="wrap sec about">
   <div class="about-l rv">
     <div class="portrait">
-      <div class="ph ph-sec"><span class="ph-art">📷</span></div>
+      <div class="ph ph-sec"><span class="ph-art" id="portraitArt"></span></div>
       <h3>Nathan Hébert-Labelle</h3>
       <p>Photographe indépendant — Québec</p>
       <div class="facts">
-        <span>📍 Basé au Québec</span>
-        <span>🚨 Spécialiste services d'urgence</span>
-        <span>🎪 Événements & actualités locales</span>
-        <span>⏱️ Disponible 7 j / 7</span>
+        <span id="f1">Basé au Québec</span>
+        <span id="f2">Spécialiste des services d'urgence</span>
+        <span id="f3">Événements et actualités locales</span>
+        <span id="f4">Disponible 7 jours / 7</span>
       </div>
     </div>
   </div>
   <div class="about-r">
-    <p class="kicker">👤 À propos</p>
+    <p class="kicker" id="kAbout"></p>
     <h2 class="sec-title lm"><span class="lm-in">Derrière la lentille</span></h2>
-    <p>Nathan Hébert-Labelle est photographe indépendant basé au Québec, spécialisé dans la couverture photographique d'événements, de services d'urgence et d'actualités locales. Incendies, interventions policières, appels ambulanciers, festivals de quartier : il documente la région telle qu'elle vit, sans artifice.</p>
-    <p>Son approche est simple : être là, rapidement, et raconter avec respect. Les services d'urgence lui ouvrent leurs casernes et ses images servent autant à l'information qu'à la prévention et au recrutement.</p>
-    <p>Ce journal en ligne est son fil de presse : les nouvelles qu'il couvre, les photos qu'il capture, les gens qu'il rencontre — et une porte ouverte pour les médias qui cherchent des images vraies.</p>
+    <p class="body">Nathan Hébert-Labelle est photographe indépendant basé au Québec, spécialisé dans la couverture photographique d'événements, de services d'urgence et d'actualités locales. Incendies, interventions policières, appels ambulanciers, festivals de quartier : il documente la région telle qu'elle vit, sans artifice.</p>
+    <p class="body">Son approche est simple : être là, rapidement, et raconter avec respect. Les services d'urgence lui ouvrent leurs casernes, et ses images servent autant à l'information qu'à la prévention et au recrutement.</p>
+    <p class="body">Ce journal en ligne est son fil de presse : les nouvelles qu'il couvre, les photos qu'il capture, les gens qu'il rencontre — et une porte ouverte pour les médias qui cherchent des images vraies.</p>
     <div class="stats">
       <div class="stat rv"><b>120+</b><span>événements couverts</span></div>
-      <div class="stat rv" style="--d:90ms"><b>45 000</b><span>photos livrées</span></div>
-      <div class="stat rv" style="--d:180ms"><b>300</b><span>interventions suivies</span></div>
-      <div class="stat rv" style="--d:270ms"><b>8</b><span>ans de terrain</span></div>
+      <div class="stat rv" style="--d:80ms"><b>45 000</b><span>photos livrées</span></div>
+      <div class="stat rv" style="--d:160ms"><b>300</b><span>interventions suivies</span></div>
+      <div class="stat rv" style="--d:240ms"><b>8</b><span>ans de terrain</span></div>
     </div>
-    <p style="font-size:.9rem"><b>🎒 Équipement :</b> boîtiers plein format, optiques rapides 24-70 / 70-200, scanner radio, bottes d'intervention et café noir.</p>
+    <p style="font-size:.86rem;font-weight:600;color:var(--mut)" id="gear">Équipement : boîtiers plein format, optiques rapides 24-70 / 70-200, scanner radio, bottes d'intervention et café noir.</p>
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
 <section id="contact" class="wrap sec">
-  <p class="kicker">📩 Nous contacter</p>
+  <p class="kicker" id="kCon"></p>
   <h2 class="sec-title lm"><span class="lm-in">Parlons-en <small>réponse en 24 à 48 h</small></span></h2>
   <div class="con-grid">
     <form id="conForm" class="rv">
@@ -419,188 +431,225 @@ footer{background:var(--ink);color:#cfc9bc;margin-top:70px}
           <option>Autre</option>
         </select></div>
       <div class="row"><label for="cMsg">Message</label><textarea id="cMsg" required placeholder="Décrivez votre besoin…"></textarea></div>
-      <button class="btn" type="submit">Envoyer 📨</button>
+      <button class="btn" type="submit">Envoyer</button>
     </form>
-    <div class="con-info rv" style="--d:120ms">
-      <h4>Coordonnées</h4>
-      <p>✉️ <span id="mailTxt"></span></p>
-      <p>📍 Québec, Canada</p>
-      <p>📱 Facebook / Instagram : @N_HEBERT2</p>
-      <p>🕐 Disponible jour, nuit et fin de semaine pour les urgences.</p>
-      <h4 style="margin-top:18px">Pour les médias</h4>
-      <p>Les demandes de droits d'utilisation passent par le bouton doré « Acheter / Demander les droits » présent sur chaque photo.</p>
+    <div class="con-info rv" style="--d:100ms">
+      <h4 id="ciH"></h4>
+      <p id="ciMail"></p>
+      <p id="ciLoc"></p>
+      <p id="ciSoc"></p>
+      <p id="ciHrs"></p>
+      <h4 id="ciMed" style="margin-top:20px"></h4>
+      <p style="align-items:flex-start">Les demandes de droits d'utilisation passent par le bouton « Acheter / Demander les droits » présent sur chaque photo et chaque article.</p>
     </div>
   </div>
 </section>
 </main>
 
 <footer><div class="wrap ft" style="padding-left:0;padding-right:0">
-  <div><h5>📰 N_HEBERT2</h5><p style="font-size:.85rem">Journal en ligne indépendant. Actualités locales, services d'urgence, événements et communauté — vu du terrain, au Québec.</p></div>
-  <div><h5>Sections</h5><a href="#actualites">Actualités</a><a href="#photos">Photographies</a><a href="#urgence">Urgence</a><a href="#evenements">Événements</a><a href="#entrevues">Entrevues</a></div>
-  <div><h5>Catégories</h5><a href="#actualites">Services policiers 🚓</a><a href="#actualites">Services incendie 🚒</a><a href="#actualites">Ambulanciers 🚑</a><a href="#actualites">Faits divers</a><a href="#actualites">Communauté</a></div>
-  <div><h5>Pro</h5><a href="#vendre">Vendre mes photos</a><a href="#contact">Couverture médiatique</a><a href="#contact">Collaborations</a><a href="#apropos">À propos</a></div>
+  <div><h5>N_HEBERT2</h5><p style="font-size:.84rem;font-weight:500">Journal en ligne indépendant. Actualités locales, services d'urgence, événements et communauté — vu du terrain, au Québec.</p></div>
+  <div><h5>Sections</h5><a href="#actualites">Actualités</a><a href="#photos">Photographies</a><a href="#urgence">Services d'urgence</a><a href="#evenements">Événements</a><a href="#entrevues">Entrevues</a></div>
+  <div><h5>Catégories</h5><a href="#actualites">Services policiers</a><a href="#actualites">Services incendie</a><a href="#actualites">Ambulanciers</a><a href="#actualites">Faits divers</a><a href="#actualites">Communauté</a></div>
+  <div><h5>Professionnel</h5><a href="#vendre">Vendre mes photos</a><a href="#contact">Couverture médiatique</a><a href="#contact">Collaborations</a><a href="#apropos">À propos</a></div>
 </div>
-<div class="ft-bot">© 2025 N_HEBERT2 — Photographe indépendant · Fait avec soin au Québec</div></footer>
+<div class="ft-bot">© 2025 N_HEBERT2 — Photographe indépendant · Québec</div></footer>
 
-<div id="modal" hidden><div class="m-box"><button class="m-x" id="mX" aria-label="Fermer">✕</button><div class="m-in" id="mIn"></div></div></div>
+<div id="modal" hidden><div class="m-box"><button class="m-x" id="mX" aria-label="Fermer"></button><div class="m-in" id="mIn"></div></div></div>
 <div id="adminBar" hidden></div>
 <div id="toast"></div>
 
 <script>
-/* ================= ⚙️ CONFIG — À CHANGER ICI ================= */
-const EMAIL = 'contact@nhebert2.ca';          // ← mets le vrai courriel de Nathan ici
-const ADMIN_CODE = 'NHEBERT2';                // ← code d'accès de l'Espace journaliste
-const BYLINE = 'Par Nathan Hébert-Labelle';
-/* ============================================================= */
+/* =============== CONFIG =============== */
+const EMAIL = 'contact@nhebert2.ca';   // <- vrai courriel de Nathan ici
+const ADMIN_CODE = 'NHEBERT2';         // <- code de l'Espace journaliste
+const BYLINE = 'Nathan Hébert-Labelle';
 
-const CATS = {
-  locales:{n:'Actualités locales',e:'🏙️'}, police:{n:'Services policiers',e:'🚓'},
-  feu:{n:'Services incendie',e:'🚒'}, ambulance:{n:'Ambulanciers',e:'🚑'},
-  securite:{n:'Sécurité civile',e:'⚠️'}, divers:{n:'Faits divers',e:'🔦'}, communaute:{n:'Communauté',e:'🤝'}
+/* =============== ICONES SVG (aucun emoji) =============== */
+const IC={
+menu:'<line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>',
+x:'<line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>',
+camera:'<path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/>',
+pin:'<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+calendar:'<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>',
+pen:'<path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>',
+mail:'<rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/>',
+flame:'<path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3 1.072-1.7 2.5-2.5 2.5-5 4.5 3 6.5 6.5 6.5 10a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3 0 1.38 1.12 2.5 2.5 2.5z"/>',
+shield:'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+cross:'<path d="M11 2a2 2 0 0 0-2 2v5H4a2 2 0 0 0-2 2v2c0 1.1.9 2 2 2h5v5c0 1.1.9 2 2 2h2a2 2 0 0 0 2-2v-5h5a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-5V4a2 2 0 0 0-2-2h-2z"/>',
+alert:'<path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>',
+users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+user:'<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>',
+newspaper:'<path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6z"/>',
+image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>',
+mic:'<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>',
+tag:'<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.83z"/><line x1="7" y1="7" x2="7.01" y2="7"/>',
+lock:'<rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+plus:'<line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>',
+trash:'<polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+arrow:'<line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>',
+check:'<polyline points="20 6 9 17 4 12"/>',
+clock:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>',
+radio:'<circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49"/><path d="M7.76 16.24a6 6 0 0 1 0-8.49"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 19.07a10 10 0 0 1 0-14.14"/>',
+siren:'<path d="M7 12v-5a5 5 0 0 1 10 0v5"/><rect x="4" y="12" width="16" height="6" rx="1"/><path d="M12 2v2"/><path d="M4.5 4.5l1.4 1.4"/><path d="M19.5 4.5l-1.4 1.4"/><path d="M9 21h6"/>',
+send:'<line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>',
+file:'<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+banknote:'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01"/><path d="M18 12h.01"/>',
+ticket:'<path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2z"/><path d="M13 5v2"/><path d="M13 17v2"/><path d="M13 11v2"/>',
+music:'<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>',
+truck:'<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.62l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/>',
+star:'<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>',
+home:'<path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>'
 };
-const TAGS = {festival:'Festivals',spectacles:'Spectacles',police:'Police',pompiers:'Pompiers',ambulances:'Ambulances',vehicules:'Véhicules d'urgence',evenements:'Événements locaux'};
+const ic=(n,s=16)=>'<svg class="ic" width="'+s+'" height="'+s+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(IC[n]||'')+'</svg>';
 
-let ARTICLES = [
- {id:'a1',cat:'feu',ph:'feu',emoji:'🚒',featured:1,views:5240,place:'Saint-Roch, Québec',date:'2025-06-21',title:'Incendie majeur à Saint-Roch : personne ne manque à l'appel',text:['Un incendie d'origine électrique a lourdement endommagé un immeuble de six logements de la rue Saint-Joseph, tôt samedi matin. Une quarantaine de pompiers ont été nécessaires pour maîtriser les flammes en un peu plus de deux heures.','Grâce à l'avertisseur de fumée et à la réaction rapide des résidents, tous ont pu évacuer à temps. La Croix-Rouge a pris en charge trois familles sinistrées.','« C'est le genre de nuit où on est contents de nos exercices », confie un lieutenant, encore couvert de suie, pendant que l'échelle aérienne terminait l'extinction des points chauds.']},
- {id:'a2',cat:'communaute',ph:'fest',emoji:'🍟',views:4810,place:'Vieux-Port, Québec',date:'2025-06-14',title:'Festival de la Poutine : une affluence record pour la 12e édition',text:['Plus de 30 000 visiteurs ont envahi le Vieux-Port durant le week-end, faisant de cette 12e édition la plus achalandée de l'histoire du festival.','Vingt-deux cantines et restaurants se sont affrontés au concours de la poutine créative, et c'est une poutine au canard confit et fromage en grains de Charlevoix qui a ravi le jury.','Les organisateurs confirment déjà une 13e édition, avec une scène supplémentaire et une zone famille.']},
- {id:'a3',cat:'police',ph:'police',emoji:'🚓',views:3970,place:'Limoilou, Québec',date:'2025-06-18',title:'Opération policière sur la 3e Avenue : un suspect arrêté',text:['Une opération ciblée du module des stupéfiants s'est conclue par une arrestation, mercredi en fin d'après-midi, près de la 3e Avenue.','Le périmètre de sécurité a forcé la fermeture de quelques commerces pendant environ une heure. Aucun incident n'a été rapporté.','Le Service de police rappelle que toute information peut être transmise de façon confidentielle.']},
- {id:'a4',cat:'ambulance',ph:'amb',emoji:'🚑',views:2890,place:'Chaudière-Appalaches',date:'2025-06-10',title:'Temps de réponse ambulanciers : ça s'améliore en région',text:['Les plus récentes données montrent une amélioration des temps de réponse pour les appels prioritaires sur la rive sud.','Deux nouvelles ambulances de garde et un ajustement des quarts de travail expliquent en partie ce gain de quelques minutes précieuses.','Les paramédics restent prudents : « chaque minute compte, et ça se joue aussi avec la population qui cède le passage », rappelle l'un d'eux.']},
- {id:'a5',cat:'securite',ph:'sec',emoji:'⚠️',views:2450,place:'Québec',date:'2025-06-08',title:'Verglas annoncé : la sécurité civile en mode veille',text:['En prévision d'un épisode de pluie verglaçante, la sécurité civile régionale a activé son centre de coordination.','On recommande à la population de préparer une trousse 72 h et de limiter ses déplacements pendant le pic attendu.','Hydro-Québec prépositionne des équipes supplémentaires dans les secteurs boisés.']},
- {id:'a6',cat:'divers',ph:'police',emoji:'🔦',views:3320,place:'Beauport, Québec',date:'2025-06-05',title:'Personne disparue retrouvée saine et sauve à Beauport',text:['L'homme de 72 ans porté disparu depuis mardi a été retrouvé sain et sauf dans un secteur boisé de Beauport, grâce à un citoyen attentif.','Une recherche impliquant patrouilleurs, maître-chien et drones avait été mise en place.','La famille tient à remercier le public et les équipes d'urgence pour leur rapidité.']},
- {id:'a7',cat:'communaute',ph:'comm',emoji:'🤝',views:1980,place:'Limoilou, Québec',date:'2025-06-02',title:'Corvée de quartier : Limoilou se retrousse les manches',text:['Près de 80 bénévoles ont participé à la corvée de printemps : nettoyage des ruelles, peinture de bancs et nouvelles boîtes à fleurs.','Le conseil de quartier souligne que plusieurs jeunes du secondaire se sont joints au mouvement.','Une seconde corvée est prévue à l'automne.']},
- {id:'a8',cat:'divers',ph:'sec',emoji:'🛻',views:4100,place:'Autoroute 40, Québec',date:'2025-05-29',title:'Accident sur l'autoroute 40 : la circulation rouverte après 3 h',text:['Une collision impliquant deux camions semi-remorques a forcé la fermeture de l'autoroute 40 en direction est pendant plus de trois heures.','Le conducteur d'un des véhicules a été transporté pour des blessures mineures.','La Sûreté du Québec rappelle l'importance de ralentir à l'approche des véhicules d'intervention.']},
+/* =============== DONNEES =============== */
+const CATS={
+ locales:{n:'Actualités locales',i:'home'}, police:{n:'Services policiers',i:'shield'},
+ feu:{n:'Services incendie',i:'flame'}, ambulance:{n:'Ambulanciers',i:'cross'},
+ securite:{n:'Sécurité civile',i:'alert'}, divers:{n:'Faits divers',i:'file'}, communaute:{n:'Communauté',i:'users'}
+};
+const TAGS={
+ festival:{n:'Festivals',i:'ticket'}, spectacles:{n:'Spectacles',i:'music'}, police:{n:'Police',i:'shield'},
+ pompiers:{n:'Pompiers',i:'flame'}, ambulances:{n:'Ambulances',i:'cross'}, vehicules:{n:'Véhicules d'urgence',i:'truck'}, evenements:{n:'Événements locaux',i:'calendar'}
+};
+const PHIC={police:'shield',feu:'flame',amb:'cross',fest:'ticket',comm:'users',sec:'alert'};
+
+let ARTICLES=[
+ {id:'a1',cat:'feu',ph:'feu',featured:1,views:5240,place:'Saint-Roch, Québec',date:'2025-06-21',title:'Incendie majeur à Saint-Roch : personne ne manque à l'appel',text:['Un incendie d'origine électrique a lourdement endommagé un immeuble de six logements de la rue Saint-Joseph, tôt samedi matin. Une quarantaine de pompiers ont été nécessaires pour maîtriser les flammes en un peu plus de deux heures.','Grâce aux avertisseurs de fumée et à la réaction rapide des résidents, tous ont pu évacuer à temps. La Croix-Rouge a pris en charge trois familles sinistrées.','« C'est le genre de nuit où on est contents de nos exercices », confie un lieutenant pendant que l'échelle aérienne terminait l'extinction des points chauds.']},
+ {id:'a2',cat:'communaute',ph:'fest',views:4810,place:'Vieux-Port, Québec',date:'2025-06-14',title:'Festival de la Poutine : une affluence record pour la 12e édition',text:['Plus de 30 000 visiteurs ont envahi le Vieux-Port durant le week-end, faisant de cette 12e édition la plus achalandée de l'histoire du festival.','Vingt-deux cantines se sont affrontées au concours de la poutine créative, et c'est une poutine au canard confit et fromage en grains de Charlevoix qui a ravi le jury.','Les organisateurs confirment déjà une 13e édition, avec une scène supplémentaire et une zone famille.']},
+ {id:'a3',cat:'police',ph:'police',views:3970,place:'Limoilou, Québec',date:'2025-06-18',title:'Opération policière sur la 3e Avenue : un suspect arrêté',text:['Une opération ciblée du module des stupéfiants s'est conclue par une arrestation, mercredi en fin d'après-midi, près de la 3e Avenue.','Le périmètre de sécurité a forcé la fermeture de quelques commerces pendant environ une heure. Aucun incident n'a été rapporté.','Le Service de police rappelle que toute information peut être transmise de façon confidentielle.']},
+ {id:'a4',cat:'ambulance',ph:'amb',views:2890,place:'Chaudière-Appalaches',date:'2025-06-10',title:'Temps de réponse ambulanciers : ça s'améliore en région',text:['Les plus récentes données montrent une amélioration des temps de réponse pour les appels prioritaires sur la rive sud.','Deux nouvelles ambulances de garde et un ajustement des quarts de travail expliquent en partie ce gain de quelques minutes précieuses.','Les paramédics restent prudents : « chaque minute compte, et ça se joue aussi avec la population qui cède le passage ».']},
+ {id:'a5',cat:'securite',ph:'sec',views:2450,place:'Québec',date:'2025-06-08',title:'Verglas annoncé : la sécurité civile en mode veille',text:['En prévision d'un épisode de pluie verglaçante, la sécurité civile régionale a activé son centre de coordination.','On recommande à la population de préparer une trousse 72 h et de limiter ses déplacements pendant le pic attendu.','Hydro-Québec prépositionne des équipes supplémentaires dans les secteurs boisés.']},
+ {id:'a6',cat:'divers',ph:'police',views:3320,place:'Beauport, Québec',date:'2025-06-05',title:'Personne disparue retrouvée saine et sauve à Beauport',text:['L'homme de 72 ans porté disparu depuis mardi a été retrouvé sain et sauf dans un secteur boisé de Beauport, grâce à un citoyen attentif.','Une recherche impliquant patrouilleurs, maître-chien et drones avait été mise en place.','La famille tient à remercier le public et les équipes d'urgence pour leur rapidité.']},
+ {id:'a7',cat:'communaute',ph:'comm',views:1980,place:'Limoilou, Québec',date:'2025-06-02',title:'Corvée de quartier : Limoilou se retrousse les manches',text:['Près de 80 bénévoles ont participé à la corvée de printemps : nettoyage des ruelles, peinture de bancs et nouvelles boîtes à fleurs.','Le conseil de quartier souligne que plusieurs jeunes du secondaire se sont joints au mouvement.','Une seconde corvée est prévue à l'automne.']},
+ {id:'a8',cat:'divers',ph:'sec',views:4100,place:'Autoroute 40, Québec',date:'2025-05-29',title:'Accident sur l'autoroute 40 : la circulation rouverte après 3 h',text:['Une collision impliquant deux camions semi-remorques a forcé la fermeture de l'autoroute 40 en direction est pendant plus de trois heures.','Le conducteur d'un des véhicules a été transporté pour des blessures mineures.','La Sûreté du Québec rappelle l'importance de ralentir à l'approche des véhicules d'intervention.']}
 ];
-
-let PHOTOS = [
- {id:'p1',tag:'festival',ph:'fest',emoji:'🍟',place:'Vieux-Port',date:'2025-06-14',title:'Festival de la Poutine — foule du samedi'},
- {id:'p2',tag:'spectacles',ph:'fest',emoji:'🎸',place:'Scène Saint-Jean',date:'2025-06-20',title:'Spectacle du soir, lumières et foule'},
- {id:'p3',tag:'police',ph:'police',emoji:'🚓',place:'Centre-ville',date:'2025-05-30',title:'Patrouille de nuit, gyrophares'},
- {id:'p4',tag:'pompiers',ph:'feu',emoji:'🚒',place:'Saint-Roch',date:'2025-06-21',title:'Échelle aérienne en action'},
- {id:'p5',tag:'ambulances',ph:'amb',emoji:'🚑',place:'3e Avenue',date:'2025-06-18',title:'Intervention ambulancière'},
- {id:'p6',tag:'vehicules',ph:'feu',emoji:'🚨',place:'Caserne 2',date:'2025-04-12',title:'Autopompe 204, sortie de caserne'},
- {id:'p7',tag:'evenements',ph:'comm',emoji:'🎉',place:'Québec',date:'2025-06-24',title:'Défilé de la fête nationale'},
- {id:'p8',tag:'pompiers',ph:'feu',emoji:'🧯',place:'Charlesbourg',date:'2025-05-10',title:'Exercice de désincarcération'},
- {id:'p9',tag:'police',ph:'police',emoji:'🐕🦺',place:'Expo Québec',date:'2025-05-17',title:'Maître-chien en démonstration'},
- {id:'p10',tag:'evenements',ph:'comm',emoji:'🥕',place:'Limoilou',date:'2025-06-01',title:'Marché public du dimanche'},
- {id:'p11',tag:'vehicules',ph:'sec',emoji:'🛻',place:'Autoroute 40',date:'2025-05-29',title:'Véhicule d'intervention, sécurité civile'},
- {id:'p12',tag:'ambulances',ph:'amb',emoji:'🌙',place:'Poste 12',date:'2025-04-02',title:'Garde nocturne, poste 12'},
+let PHOTOS=[
+ {id:'p1',tag:'festival',ph:'fest',place:'Vieux-Port',date:'2025-06-14',title:'Festival de la Poutine — foule du samedi'},
+ {id:'p2',tag:'spectacles',ph:'fest',place:'Scène Saint-Jean',date:'2025-06-20',title:'Spectacle du soir, lumières et foule'},
+ {id:'p3',tag:'police',ph:'police',place:'Centre-ville',date:'2025-05-30',title:'Patrouille de nuit, gyrophares'},
+ {id:'p4',tag:'pompiers',ph:'feu',place:'Saint-Roch',date:'2025-06-21',title:'Échelle aérienne en action'},
+ {id:'p5',tag:'ambulances',ph:'amb',place:'3e Avenue',date:'2025-06-18',title:'Intervention ambulancière'},
+ {id:'p6',tag:'vehicules',ph:'feu',place:'Caserne 2',date:'2025-04-12',title:'Autopompe 204, sortie de caserne'},
+ {id:'p7',tag:'evenements',ph:'comm',place:'Québec',date:'2025-06-24',title:'Défilé de la fête nationale'},
+ {id:'p8',tag:'pompiers',ph:'feu',place:'Charlesbourg',date:'2025-05-10',title:'Exercice de désincarcération'},
+ {id:'p9',tag:'police',ph:'police',place:'Expo Québec',date:'2025-05-17',title:'Maître-chien en démonstration'},
+ {id:'p10',tag:'evenements',ph:'comm',place:'Limoilou',date:'2025-06-01',title:'Marché public du dimanche'},
+ {id:'p11',tag:'vehicules',ph:'sec',place:'Autoroute 40',date:'2025-05-29',title:'Véhicule d'intervention, sécurité civile'},
+ {id:'p12',tag:'ambulances',ph:'amb',place:'Poste 12',date:'2025-04-02',title:'Garde nocturne, poste 12'}
 ];
-
-let EVENTS = [
+let EVENTS=[
  {d:'2025-07-12',type:'Festival',place:'Vieux-Port, Québec',status:'ok',title:'Festival de la Poutine — jour 2'},
  {d:'2025-07-19',type:'Spectacle',place:'Scène Saint-Jean, Québec',status:'ok',title:'Spectacle extérieur d'été'},
  {d:'2025-08-02',type:'Communautaire',place:'Charlesbourg',status:'ok',title:'Défilé bénéfice des pompiers'},
  {d:'2025-08-15',type:'Sportif',place:'Expo Québec',status:'tbc',title:'Derby de démolition annuel'},
- {d:'2025-09-05',type:'Festival',place:'Beauport',status:'ok',title:'Week-end folklore & familles'},
+ {d:'2025-09-05',type:'Festival',place:'Beauport',status:'ok',title:'Week-end folklore et familles'}
 ];
-
-const INTERVIEWS = [
- {who:'Patrick L.',role:'Pompier, 14 ans de service',emoji:'🚒',ph:'feu',quote:'Chaque intervention est une histoire humaine. Les photos de Nathan nous rendent fiers, nous et nos familles.'},
- {who:'Marie G.',role:'Sergente, patrouille centre-ville',emoji:'🚓',ph:'police',quote:'Un regard respectueux sur notre quotidien. C'est rare, et c'est précieux.'},
- {who:'Sophie T.',role:'Paramédic',emoji:'🚑',ph:'amb',quote:'Il capte le calme autour de l'urgence. Personne d'autre ne fait ça ici.'},
- {who:'Steve R.',role:'Organisateur, Festival de la Poutine',emoji:'🎪',ph:'fest',quote:'Ses images ont doublé nos préventes. On l'attend chaque année.'},
+const INTERVIEWS=[
+ {who:'Patrick L.',role:'Pompier, 14 ans de service',quote:'Chaque intervention est une histoire humaine. Les photos de Nathan nous rendent fiers, nous et nos familles.'},
+ {who:'Marie G.',role:'Sergente, patrouille centre-ville',quote:'Un regard respectueux sur notre quotidien. C'est rare, et c'est précieux.'},
+ {who:'Sophie T.',role:'Paramédic',quote:'Il capte le calme autour de l'urgence. Personne d'autre ne fait ça ici.'},
+ {who:'Steve R.',role:'Organisateur, Festival de la Poutine',quote:'Ses images ont doublé nos préventes. On l'attend chaque année.'}
 ];
-
-const URG = {
- police:{t:'Services policiers 🚓',txt:'Patrouilles de nuit, opérations ciblées, relations communautaires et démonstrations publiques : une couverture régulière du travail policier, avec le respect des personnes et des enquêtes en cours.',phs:['police']},
- feu:{t:'Services incendie 🚒',txt:'Incendies, exercices, désincarcération, portraits de pompiers et vie de caserne. Un accès de terrain qui permet des images rares, sans jamais nuire à l'intervention.',phs:['feu']},
- ambulance:{t:'Services ambulanciers 🚑',txt:'Suivis d'interventions (avec consentement), prévention, gardes nocturnes et quotidien des paramédics : l'autre visage de la chaîne d'urgence, souvent invisible.',phs:['amb']},
- securite:{t:'Sécurité civile ⚠️',txt:'Verglas, inondations, exercices d'urgence et coordination régionale : documenter la préparation et la résilience de la communauté.',phs:['sec']},
+const URG={
+ police:{t:'Services policiers',i:'shield',txt:'Patrouilles de nuit, opérations ciblées, relations communautaires et démonstrations publiques : une couverture régulière du travail policier, avec le respect des personnes et des enquêtes en cours.',phs:['police']},
+ feu:{t:'Services incendie',i:'flame',txt:'Incendies, exercices, désincarcération, portraits de pompiers et vie de caserne. Un accès de terrain qui permet des images rares, sans jamais nuire à l'intervention.',phs:['feu']},
+ ambulance:{t:'Ambulanciers',i:'cross',txt:'Suivis d'interventions avec consentement, prévention, gardes nocturnes et quotidien des paramédics : l'autre visage de la chaîne d'urgence, souvent invisible.',phs:['amb']},
+ securite:{t:'Sécurité civile',i:'alert',txt:'Verglas, inondations, exercices d'urgence et coordination régionale : documenter la préparation et la résilience de la communauté.',phs:['sec']}
 };
 
-/* ---------- état & utilitaires ---------- */
+/* =============== ETAT & UTILITAIRES =============== */
 const LS='nh2_custom_v1'; let CUSTOM={articles:[],photos:[],events:[]}; let EDIT=false;
-try{CUSTOM=JSON.parse(localStorage.getItem(LS))||CUSTOM}catch(e){}
-const save=()=>{try{localStorage.setItem(LS,JSON.stringify(CUSTOM))}catch(e){toast('⚠️ Stockage plein — image trop lourde')}};
-const all=k=>[...CUSTOM[k],...({articles:ARTICLES,photos:PHOTOS,events:EVENTS})[k]];
+try{const s=JSON.parse(localStorage.getItem(LS)); if(s&&s.articles)CUSTOM=s}catch(e){}
+const save=()=>{try{localStorage.setItem(LS,JSON.stringify(CUSTOM))}catch(e){toast('Stockage plein — image trop lourde')}};
+const all=k=>CUSTOM[k].concat({articles:ARTICLES,photos:PHOTOS,events:EVENTS}[k]);
 const $=s=>document.querySelector(s);
 const fmt=d=>{try{return new Intl.DateTimeFormat('fr-CA',{day:'numeric',month:'long',year:'numeric'}).format(new Date(d+'T12:00:00'))}catch(e){return d}};
-const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
-function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2200)}
-function phDiv(o,cls=''){return `<div class="ph ph-${o.ph} ${cls}"><span class="ph-art">${o.img?`<img src="${o.img}" alt="">`:o.emoji}</span></div>`}
-function delBtn(id,k){return EDIT?`<button class="del" data-del="${id}" data-k="${k}" title="Supprimer">🗑</button>`:''}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200)}
+function phDiv(o,extra){return '<div class="ph ph-'+o.ph+' '+(extra||'')+'">'+(o.img?'<span class="ph-art"><img src="'+o.img+'" alt=""></span>':'<span class="ph-art">'+ic(PHIC[o.ph]||'camera',52)+'</span>')+'</div>'}
+function delBtn(id,k){return EDIT?'<button class="del" data-del="'+id+'" data-k="'+k+'" title="Supprimer">'+ic('trash',14)+'</button>':''}
+function metaLine(a){return '<p class="meta"><span>'+ic('pin',13)+a.place+'</span><span>'+ic('calendar',13)+fmt(a.date)+'</span><span>'+ic('pen',13)+BYLINE+'</span></p>'}
 
-/* ---------- rendu ---------- */
+/* =============== RENDU =============== */
 function renderTicker(){
-  const h=all('articles').slice(0,6).map(a=>`<span>+++ ${a.title}</span>`).join('');
+  const h=all('articles').slice(0,6).map(a=>'<span>'+a.title+'</span><span style="color:var(--red)">•</span>').join('');
   $('#tkTrack').innerHTML=h+h;
 }
 function renderFront(){
   const a=all('articles').find(x=>x.featured)||all('articles')[0];
-  $('#leadSlot').innerHTML=`<article class="lead rv in kb" data-id="${a.id}">${delBtn(a.id,'articles')}
-    ${phDiv(a)}
-    <div class="lead-b"><p class="kicker">À la une · ${CATS[a.cat].e} ${CATS[a.cat].n}</p>
-    <h2><span>${a.title}</span></h2>
-    <p class="meta">📍 ${a.place} · 📅 ${fmt(a.date)} · ✍️ ${BYLINE}</p>
-    <p class="lead-x">${a.text[0]}</p>
-    <button class="btn-line" data-read="${a.id}" style="margin-top:12px">Lire l'article complet →</button></div></article>`;
-  $('#briefs').innerHTML=all('articles').slice(1,5).map(a=>`<div class="brief">${CATS[a.cat].e} <b>${a.title}</b></div>`).join('');
-  $('#popular').innerHTML=[...all('articles')].sort((x,y)=>y.views-x.views).slice(0,5)
-    .map((a,i)=>`<div class="pop"><b>${i+1}</b><span>${a.title}</span></div>`).join('');
+  $('#leadSlot').innerHTML='<article class="lead rv in kb">'+delBtn(a.id,'articles')+phDiv(a)+
+   '<span class="badge">'+ic(CATS[a.cat].i,12)+CATS[a.cat].n+'</span>'+
+   '<div class="lead-b"><p class="kicker">'+ic('newspaper',14)+'À la une</p><h2><span>'+a.title+'</span></h2>'+
+   metaLine(a)+'<p class="lead-x">'+a.text[0]+'</p>'+
+   '<button class="btn-line" data-read="'+a.id+'" style="margin-top:14px">Lire l'article complet '+ic('arrow',14)+'</button></div></article>';
+  $('#briefs').innerHTML=all('articles').slice(1,5).map(x=>'<div class="brief">'+ic(CATS[x.cat].i,14)+'<span>'+x.title+'</span></div>').join('');
+  $('#popular').innerHTML=ALLSORT().slice(0,5).map((x,i)=>'<div class="pop"><b>'+(i+1)+'</b><span>'+x.title+'</span></div>').join('');
 }
-let curCat='all';
+function ALLSORT(){return all('articles').slice().sort((x,y)=>(y.views||0)-(x.views||0))}
+let curCat='all',curTag='all',curUrg='police';
 function renderChips(){
-  $('#catChips').innerHTML=`<button class="chip ${curCat==='all'?'on':''}" data-f="all">Tout</button>`+
-    Object.entries(CATS).map(([k,v])=>`<button class="chip ${curCat===k?'on':''}" data-f="${k}">${v.e} ${v.n}</button>`).join('');
-  $('#galChips').innerHTML=`<button class="chip ${curTag==='all'?'on':''}" data-g="all">Tout</button>`+
-    Object.entries(TAGS).map(([k,v])=>`<button class="chip ${curTag===k?'on':''}" data-g="${k}">${v}</button>`).join('');
+  $('#catChips').innerHTML='<button class="chip '+(curCat==='all'?'on':'')+'" data-f="all">Tout</button>'+
+   Object.keys(CATS).map(k=>'<button class="chip '+(curCat===k?'on':'')+'" data-f="'+k+'">'+ic(CATS[k].i,13)+CATS[k].n+'</button>').join('');
+  $('#galChips').innerHTML='<button class="chip '+(curTag==='all'?'on':'')+'" data-g="all">Tout</button>'+
+   Object.keys(TAGS).map(k=>'<button class="chip '+(curTag===k?'on':'')+'" data-g="'+k+'">'+ic(TAGS[k].i,13)+TAGS[k].n+'</button>').join('');
 }
 function renderNews(){
   const list=all('articles').filter(a=>curCat==='all'||a.cat===curCat);
-  $('#newsGrid').innerHTML=list.map((a,i)=>`<article class="card rv ${i===0?'card-wide':''}" style="--d:${(i%6)*70}ms">${delBtn(a.id,'articles')}
-    ${phDiv(a)}<span class="badge" style="position:absolute;top:0;left:0">${CATS[a.cat].e} ${CATS[a.cat].n}</span>
-    <div class="card-b"><h3>${a.title}</h3>
-    <p class="meta">📍 ${a.place} · 📅 ${fmt(a.date)}<br>✍️ ${BYLINE}</p>
-    <p class="ex">${a.text[0].slice(0,120)}…</p>
-    <button class="btn-line" data-read="${a.id}">Lire l'article →</button></div></article>`).join('')||'<p>Aucun article dans cette catégorie pour l'instant.</p>';
+  $('#newsGrid').innerHTML=list.map((a,i)=>'<article class="card rv '+(i===0?'card-wide':'')+'" style="--d:'+((i%6)*60)+'ms">'+delBtn(a.id,'articles')+
+   phDiv(a)+'<span class="badge">'+ic(CATS[a.cat].i,12)+CATS[a.cat].n+'</span>'+
+   '<div class="card-b"><h3>'+a.title+'</h3>'+metaLine(a)+'<p class="ex">'+a.text[0].slice(0,120)+'…</p>'+
+   '<button class="btn-line" data-read="'+a.id+'">Lire l'article '+ic('arrow',14)+'</button></div></article>').join('')||
+   '<p style="color:var(--mut);font-weight:500">Aucun article dans cette catégorie pour l'instant.</p>';
   observe();
 }
-let curTag='all';
 function renderGal(){
   const list=all('photos').filter(p=>curTag==='all'||p.tag===curTag);
-  $('#galGrid').innerHTML=list.map((p,i)=>`<div class="gtile rv" style="--d:${(i%8)*50}ms" data-zoom="${p.id}">${delBtn(p.id,'photos')}
-    ${phDiv(p)}<button class="glic" data-lic="${p.title}">💼 Droits</button>
-    <div class="gcap"><b>${p.title}</b><br>📍 ${p.place} · 📅 ${fmt(p.date)}</div></div>`).join('')||'<p>Aucune photo ici pour l'instant.</p>';
+  $('#galGrid').innerHTML=list.map((p,i)=>'<div class="gtile rv" style="--d:'+((i%8)*45)+'ms" data-zoom="'+p.id+'">'+delBtn(p.id,'photos')+
+   phDiv(p)+'<button class="glic" data-lic="'+p.title+'" title="Demander les droits">'+ic('tag',12)+'Droits</button>'+
+   '<div class="gcap"><b>'+p.title+'</b><br>'+p.place+' · '+fmt(p.date)+'</div></div>').join('')||
+   '<p style="color:var(--mut);font-weight:500">Aucune photo ici pour l'instant.</p>';
   observe();
 }
-let curUrg='police';
 function renderUrg(){
-  $('#urgTabs').innerHTML=Object.entries(URG).map(([k,v])=>`<button class="tab ${curUrg===k?'on':''}" data-u="${k}">${v.t}</button>`).join('');
+  $('#urgTabs').innerHTML=Object.keys(URG).map(k=>'<button class="tab '+(curUrg===k?'on':'')+'" data-u="'+k+'">'+ic(URG[k].i,15)+URG[k].t+'</button>').join('');
   const u=URG[curUrg];
   const phs=all('photos').filter(p=>u.phs.includes(p.ph)).slice(0,6);
-  $('#urgPanel').innerHTML=`<div><p class="dispatch"><i></i>Canal ${curUrg} — couverture active</p><p>${u.txt}</p>
-    <p style="margin-top:14px"><button class="btn" data-contact="cover">Demander une couverture 🚨</button></p></div>
-    <div class="strip">${phs.map(p=>phDiv(p)).join('')||'<p style="color:#888">Photos à venir.</p>'}</div>`;
+  $('#urgPanel').innerHTML='<div><p class="dispatch"><span class="dot"></span>Couverture active — '+u.t+'</p><p>'+u.txt+'</p>'+
+   '<p style="margin-top:18px"><button class="btn" data-contact="cover">Demander une couverture</button></p></div>'+
+   '<div class="strip">'+(phs.map(p=>phDiv(p)).join('')||'<p style="color:#8a8f99">Photos à venir.</p>')+'</div>';
 }
 function renderEvents(){
-  $('#evList').innerHTML=all('events').sort((a,b)=>a.d.localeCompare(b.d)).map((e,i)=>{
-    const d=new Date(e.d+'T12:00:00');
-    return `<div class="ev rv" style="--d:${i*70}ms">${delBtn(e.id,'events')}
-    <div class="ev-d"><b>${d.getDate()}</b><span>${new Intl.DateTimeFormat('fr-CA',{month:'short'}).format(d).replace('.','')}</span></div>
-    <div><h3>${e.title}</h3><p>${e.type} · 📍 ${e.place}</p></div>
-    <span class="st ${e.status==='ok'?'ok':'tbc'}">${e.status==='ok'?'✔ Couverture confirmée':'⏳ À confirmer'}</span></div>`;
+  $('#evList').innerHTML=all('events').slice().sort((a,b)=>a.d.localeCompare(b.d)).map((e,i)=>{
+   const d=new Date(e.d+'T12:00:00');
+   const mo=new Intl.DateTimeFormat('fr-CA',{month:'short'}).format(d).replace('.','');
+   return '<div class="ev rv" style="--d:'+(i*60)+'ms">'+delBtn(e.id,'events')+
+   '<div class="ev-d"><b>'+d.getDate()+'</b><span>'+mo+'</span></div>'+
+   '<div><h3>'+e.title+'</h3><p><span>'+ic('tag',13)+e.type+'</span><span>'+ic('pin',13)+e.place+'</span></p></div>'+
+   '<span class="st '+(e.status==='ok'?'ok':'tbc')+'">'+ic(e.status==='ok'?'check':'clock',12)+(e.status==='ok'?'Couverture confirmée':'À confirmer')+'</span></div>';
   }).join('');
   observe();
 }
 function renderInt(){
-  $('#intRow').innerHTML=INTERVIEWS.map(v=>`<div class="int">${phDiv(v).replace('class="ph','style="min-height:110px" class="ph')}
-    <span class="emo">${v.emoji}</span><q>${v.quote}</q>
-    <p class="who">${v.who}</p><p class="role">${v.role} · 🎙️ Entrevue complète à venir</p></div>`).join('');
+  $('#intGrid').innerHTML=INTERVIEWS.map((v,i)=>'<div class="int rv" style="--d:'+(i*70)+'ms"><div class="top">'+ic('mic',20)+
+   '<div><p class="who">'+v.who+'</p><p class="role">'+v.role+'</p></div></div><q>'+v.quote+'</q></div>').join('');
+  observe();
 }
-function renderAll(){renderTicker();renderFront();renderChips();renderNews();renderGal();renderUrg();renderEvents();renderInt();
+function renderAll(){
+  renderTicker();renderFront();renderChips();renderNews();renderGal();renderUrg();renderEvents();renderInt();
   $('#adminBar').hidden=!EDIT;
-  if(EDIT)$('#adminBar').innerHTML=`<button data-add="article">➕ Article</button><button data-add="photo">➕ Photo</button><button data-add="event">➕ Événement</button><button class="quit" id="quitEdit">Quitter ✕</button>`;
+  if(EDIT)$('#adminBar').innerHTML='<button data-add="article">'+ic('plus',14)+'Article</button><button data-add="photo">'+ic('plus',14)+'Photo</button><button data-add="event">'+ic('plus',14)+'Événement</button><button class="quit" id="quitEdit">'+ic('logout',14)+'Quitter</button>';
 }
 
-/* ---------- reveals ---------- */
+/* =============== REVEALS =============== */
 let io;
 function observe(){
   if(io)io.disconnect();
-  io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.1});
   document.querySelectorAll('.rv:not(.in),.lm:not(.in)').forEach(el=>io.observe(el));
 }
 
-/* ---------- modales ---------- */
+/* =============== MODALES =============== */
 function openModal(html){$('#mIn').innerHTML=html;$('#modal').hidden=false;document.body.style.overflow='hidden'}
 function closeModal(){$('#modal').hidden=true;document.body.style.overflow=''}
 $('#mX').onclick=closeModal;
@@ -610,118 +659,137 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 function readArticle(id){
   const a=all('articles').find(x=>x.id===id); if(!a)return;
   const gal=all('photos').filter(p=>p.ph===a.ph).slice(0,4);
-  openModal(`<h3>${a.title}</h3>
-   <p class="meta">📍 ${a.place} · 📅 ${fmt(a.date)} · ✍️ ${BYLINE} · ${CATS[a.cat].e} ${CATS[a.cat].n}</p>
-   ${phDiv(a)}
-   <div class="txt">${a.text.map(p=>`<p>${p}</p>`).join('')}</div>
-   ${gal.length?`<p class="kicker" style="margin-bottom:6px">📸 Galerie du reportage</p><div class="m-gal">${gal.map(p=>phDiv(p)).join('')}</div>`:''}
-   <button class="btn gold" data-lic="${a.title}">Acheter / Demander les droits d'utilisation 📸</button>`);
+  openModal('<h3>'+a.title+'</h3>'+metaLine(a)+'<p class="meta"><span>'+ic(CATS[a.cat].i,13)+CATS[a.cat].n+'</span></p>'+phDiv(a)+
+   '<div class="txt">'+a.text.map(p=>'<p>'+p+'</p>').join('')+'</div>'+
+   (gal.length?'<p class="kicker" style="margin-bottom:8px">'+ic('image',14)+'Galerie du reportage</p><div class="m-gal">'+gal.map(p=>phDiv(p)).join('')+'</div>':'')+
+   '<button class="btn" data-lic="'+a.title+'">'+ic('tag',14)+'Acheter / Demander les droits d'utilisation</button>');
 }
 function licModal(item){
-  openModal(`<h3>💼 Droits d'utilisation</h3><p class="meta">Concernant : <b>${item}</b></p>
-  <form id="licForm">
-   <div class="row"><label>Votre nom / média</label><input id="lName" required placeholder="Ex. : TVA Nouvelles"></div>
-   <div class="row"><label>Votre courriel</label><input id="lMail" type="email" required></div>
-   <div class="row"><label>Usage prévu</label><select id="lUse"><option>Web / réseaux sociaux</option><option>Imprimé</option><option>Commercial</option><option>Exclusivité complète</option></select></div>
-   <div class="row"><label>Précisions</label><textarea id="lMsg" placeholder="Contexte, date de parution, format souhaité…"></textarea></div>
-   <button class="btn gold" type="submit">Envoyer la demande 📨</button>
-  </form>`);
+  openModal('<h3>Droits d'utilisation</h3><p class="meta"><span>'+ic('tag',13)+'Concernant : '+item+'</span></p>'+
+  '<form id="licForm"><div class="row"><label>Votre nom / média</label><input id="lName" required placeholder="Ex. : TVA Nouvelles"></div>'+
+  '<div class="row"><label>Votre courriel</label><input id="lMail" type="email" required></div>'+
+  '<div class="row"><label>Usage prévu</label><select id="lUse"><option>Web / réseaux sociaux</option><option>Imprimé</option><option>Commercial</option><option>Exclusivité complète</option></select></div>'+
+  '<div class="row"><label>Précisions</label><textarea id="lMsg" placeholder="Contexte, date de parution, format souhaité…"></textarea></div>'+
+  '<button class="btn" type="submit">'+ic('send',14)+'Envoyer la demande</button></form>');
   $('#licForm').onsubmit=e=>{e.preventDefault();
-    const s=`Demande de droits — ${item}`,b=`Nom/Média: ${$('#lName').value}%0ACourriel: ${$('#lMail').value}%0AUsage: ${$('#lUse').value}%0A%0A${encodeURIComponent($('#lMsg').value)}`;
-    location.href=`mailto:${EMAIL}?subject=${encodeURIComponent(s)}&body=${b}`;toast('Demande prête à envoyer ✔');closeModal()};
+    const s='Demande de droits — '+item;
+    const b='Nom/Média: '+$('#lName').value+'%0ACourriel: '+$('#lMail').value+'%0AUsage: '+$('#lUse').value+'%0A%0A'+encodeURIComponent($('#lMsg').value);
+    location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(s)+'&body='+b;
+    toast('Demande prête à envoyer');closeModal()};
 }
 function contactModal(pre){
-  closeModal();$('#contact').scrollIntoView();
+  closeModal();document.getElementById('contact').scrollIntoView();
   if(pre==='cover')$('#cSub').value='Demande de couverture médiatique';
   if(pre==='tip')$('#cSub').value='Envoyer un tuyau / nouvelle locale';
   setTimeout(()=>$('#cName').focus(),600);
 }
 
-/* ---------- Espace journaliste ---------- */
+/* =============== ESPACE JOURNALISTE =============== */
 function adminClick(){
   if(EDIT){EDIT=false;renderAll();return}
-  if(sessionStorage.getItem('nh2ok')==='1'){EDIT=true;renderAll();toast('Mode édition activé ✏️');return}
-  openModal(`<h3>🔑 Espace journaliste</h3><p class="meta">Réservé à Nathan — entre ton code d'accès.</p>
-   <form id="pwForm"><div class="row"><input id="pw" type="password" placeholder="Code d'accès" required></div>
-   <button class="btn" type="submit">Entrer</button></form>`);
+  if(sessionStorage.getItem('nh2ok')==='1'){EDIT=true;renderAll();toast('Mode édition activé');return}
+  openModal('<h3>Espace journaliste</h3><p class="meta"><span>'+ic('lock',13)+'Réservé à Nathan — entre ton code d'accès.</span></p>'+
+   '<form id="pwForm"><div class="row"><input id="pw" type="password" placeholder="Code d'accès" required></div><button class="btn dark" type="submit">Entrer</button></form>');
   $('#pwForm').onsubmit=e=>{e.preventDefault();
-    if($('#pw').value.trim().toUpperCase()===ADMIN_CODE){sessionStorage.setItem('nh2ok','1');EDIT=true;closeModal();renderAll();toast('Bienvenue Nathan ✏️')}
-    else toast('❌ Mauvais code')};
+    if($('#pw').value.trim().toUpperCase()===ADMIN_CODE){sessionStorage.setItem('nh2ok','1');EDIT=true;closeModal();renderAll();toast('Bienvenue Nathan')}
+    else toast('Mauvais code')};
 }
 function shrink(file,cb){const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{
   const c=document.createElement('canvas');const s=Math.min(1,1100/Math.max(im.width,im.height));
-  c.width=im.width*s;c.height=im.height*s;c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-  cb(c.toDataURL('image/jpeg',.82))};im.src=r.result};r.readAsDataURL(file)}
+  c.width=Math.round(im.width*s);c.height=Math.round(im.height*s);
+  c.getContext('2d').drawImage(im,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.82))};im.src=r.result};r.readAsDataURL(file)}
+const PHMAP={police:'police',feu:'feu',ambulance:'amb',securite:'sec',divers:'sec',communaute:'comm',locales:'comm'};
+const TGMAP={police:'police',pompiers:'feu',ambulances:'amb',vehicules:'sec',festival:'fest',spectacles:'fest',evenements:'comm'};
 function addForm(kind){
   const today=new Date().toISOString().slice(0,10);
-  if(kind==='article')openModal(`<h3>➕ Nouvel article</h3><form id="fA">
-   <div class="row"><label>Titre *</label><input id="fT" required></div>
-   <div class="row"><label>Catégorie</label><select id="fC">${Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v.e} ${v.n}</option>`).join('')}</select></div>
-   <div class="row"><label>Lieu *</label><input id="fP" required placeholder="Ex. : Québec"></div>
-   <div class="row"><label>Date</label><input id="fD" type="date" value="${today}"></div>
-   <div class="row"><label>Photo (optionnel)</label><input id="fI" type="file" accept="image/*"></div>
-   <div class="row"><label>Texte (paragraphes séparés par une ligne vide) *</label><textarea id="fX" required></textarea></div>
-   <button class="btn" type="submit">Publier 🗞️</button></form>`);
-  if(kind==='photo')openModal(`<h3>➕ Nouvelle photo</h3><form id="fA">
-   <div class="row"><label>Titre *</label><input id="fT" required></div>
-   <div class="row"><label>Galerie</label><select id="fC">${Object.entries(TAGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select></div>
-   <div class="row"><label>Lieu</label><input id="fP" placeholder="Ex. : Québec"></div>
-   <div class="row"><label>Date</label><input id="fD" type="date" value="${today}"></div>
-   <div class="row"><label>Photo (optionnel)</label><input id="fI" type="file" accept="image/*"></div>
-   <button class="btn" type="submit">Ajouter 📸</button></form>`);
-  if(kind==='event')openModal(`<h3>➕ Nouvel événement</h3><form id="fA">
-   <div class="row"><label>Titre *</label><input id="fT" required></div>
-   <div class="row"><label>Date *</label><input id="fD" type="date" value="${today}" required></div>
-   <div class="row"><label>Lieu</label><input id="fP"></div>
-   <div class="row"><label>Type</label><select id="fC"><option>Festival</option><option>Spectacle</option><option>Sportif</option><option>Communautaire</option></select></div>
-   <div class="row"><label>Statut</label><select id="fS"><option value="ok">Couverture confirmée</option><option value="tbc">À confirmer</option></select></div>
-   <button class="btn" type="submit">Ajouter 🎤</button></form>`);
+  if(kind==='article')openModal('<h3>Nouvel article</h3><form id="fA">'+
+   '<div class="row"><label>Titre *</label><input id="fT" required></div>'+
+   '<div class="row"><label>Catégorie</label><select id="fC">'+Object.keys(CATS).map(k=>'<option value="'+k+'">'+CATS[k].n+'</option>').join('')+'</select></div>'+
+   '<div class="row"><label>Lieu *</label><input id="fP" required placeholder="Ex. : Québec"></div>'+
+   '<div class="row"><label>Date</label><input id="fD" type="date" value="'+today+'"></div>'+
+   '<div class="row"><label>Photo (optionnel)</label><input id="fI" type="file" accept="image/*"></div>'+
+   '<div class="row"><label>Texte — paragraphes séparés par une ligne vide *</label><textarea id="fX" required></textarea></div>'+
+   '<button class="btn" type="submit">Publier</button></form>');
+  if(kind==='photo')openModal('<h3>Nouvelle photo</h3><form id="fA">'+
+   '<div class="row"><label>Titre *</label><input id="fT" required></div>'+
+   '<div class="row"><label>Galerie</label><select id="fC">'+Object.keys(TAGS).map(k=>'<option value="'+k+'">'+TAGS[k].n+'</option>').join('')+'</select></div>'+
+   '<div class="row"><label>Lieu</label><input id="fP" placeholder="Ex. : Québec"></div>'+
+   '<div class="row"><label>Date</label><input id="fD" type="date" value="'+today+'"></div>'+
+   '<div class="row"><label>Photo (optionnel)</label><input id="fI" type="file" accept="image/*"></div>'+
+   '<button class="btn" type="submit">Ajouter</button></form>');
+  if(kind==='event')openModal('<h3>Nouvel événement</h3><form id="fA">'+
+   '<div class="row"><label>Titre *</label><input id="fT" required></div>'+
+   '<div class="row"><label>Date *</label><input id="fD" type="date" value="'+today+'" required></div>'+
+   '<div class="row"><label>Lieu</label><input id="fP"></div>'+
+   '<div class="row"><label>Type</label><select id="fC"><option>Festival</option><option>Spectacle</option><option>Sportif</option><option>Communautaire</option></select></div>'+
+   '<div class="row"><label>Statut</label><select id="fS"><option value="ok">Couverture confirmée</option><option value="tbc">À confirmer</option></select></div>'+
+   '<button class="btn" type="submit">Ajouter</button></form>');
   $('#fA').onsubmit=e=>{e.preventDefault();
     const T=$('#fT').value.trim();if(!T)return;
     const finish=img=>{
-      if(kind==='article')CUSTOM.articles.unshift({id:'c'+Date.now(),custom:1,title:T,cat:$('#fC').value,place:$('#fP').value||'Québec',date:$('#fD').value||today,ph:({police:'police',feu:'feu',ambulance:'amb',securite:'sec',divers:'sec',communaute:'comm',locales:'comm'})[$('#fC').value],emoji:CATS[$('#fC').value].e,img,text:$('#fX')?$('#fX').value.split(/\n\n+/):[''] ,views:1});
-      if(kind==='photo')CUSTOM.photos.unshift({id:'c'+Date.now(),custom:1,title:T,tag:$('#fC').value,place:$('#fP').value||'Québec',date:$('#fD').value||today,ph:({police:'police',pompiers:'feu',ambulances:'amb',vehicules:'sec',festival:'fest',spectacles:'fest',evenements:'comm'})[$('#fC').value],emoji:'📸',img});
+      if(kind==='article')CUSTOM.articles.unshift({id:'c'+Date.now(),custom:1,title:T,cat:$('#fC').value,place:$('#fP').value||'Québec',date:$('#fD').value||today,ph:PHMAP[$('#fC').value],img:img,text:$('#fX').value.split(/\n\s*\n/).filter(Boolean),views:1});
+      if(kind==='photo')CUSTOM.photos.unshift({id:'c'+Date.now(),custom:1,title:T,tag:$('#fC').value,place:$('#fP').value||'Québec',date:$('#fD').value||today,ph:TGMAP[$('#fC').value],img:img});
       if(kind==='event')CUSTOM.events.push({id:'c'+Date.now(),custom:1,title:T,d:$('#fD').value,place:$('#fP').value||'Québec',type:$('#fC').value,status:$('#fS').value});
-      save();closeModal();renderAll();toast('Ajouté au journal ✔')};
+      save();closeModal();renderAll();toast('Ajouté au journal')};
     const f=$('#fI')&&$('#fI').files[0];
     if(f)shrink(f,finish);else finish(undefined);
   };
 }
 
-/* ---------- délégation ---------- */
+/* =============== DELEGATION =============== */
 document.addEventListener('click',e=>{
-  const t=e.target;
-  if(t.dataset.read)readArticle(t.dataset.read);
-  if(t.dataset.lic!==undefined&&t.dataset.lic!=='')licModal(t.dataset.lic);
-  if(t.dataset.contact)contactModal(t.dataset.contact);
-  if(t.dataset.f!==undefined){curCat=t.dataset.f;renderChips();renderNews()}
-  if(t.dataset.g!==undefined){curTag=t.dataset.g;renderChips();renderGal()}
-  if(t.dataset.u){curUrg=t.dataset.u;renderUrg()}
-  if(t.dataset.zoom){const p=all('photos').find(x=>x.id===t.dataset.zoom);
-    openModal(`<h3>${p.title}</h3><p class="meta">📍 ${p.place} · 📅 ${fmt(p.date)} · 📸 ${BYLINE}</p>${phDiv(p)}
-    <button class="btn gold" data-lic="${p.title}">Acheter / Demander les droits d'utilisation 📸</button>`)}
-  if(t.dataset.del){if(confirm('Supprimer cet élément?')){const k=t.dataset.k;CUSTOM[k]=CUSTOM[k].filter(x=>x.id!==t.dataset.del);save();renderAll();toast('Supprimé 🗑')}}
-  if(t.dataset.add)addForm(t.dataset.add);
-  if(t.id==='quitEdit'){EDIT=false;renderAll();toast('Mode édition quitté')}
+  const t=e.target.closest('button,a');if(!t)return;
+  if(t.dataset.read){readArticle(t.dataset.read);return}
+  if(t.dataset.lic){licModal(t.dataset.lic);return}
+  if(t.dataset.contact){contactModal(t.dataset.contact);return}
+  if(t.dataset.f!==undefined){curCat=t.dataset.f;renderChips();renderNews();return}
+  if(t.dataset.g!==undefined){curTag=t.dataset.g;renderChips();renderGal();return}
+  if(t.dataset.u){curUrg=t.dataset.u;renderUrg();return}
+  if(t.dataset.zoom){const p=all('photos').find(x=>x.id===t.dataset.zoom);if(p)openModal('<h3>'+p.title+'</h3><p class="meta"><span>'+ic('pin',13)+p.place+'</span><span>'+ic('calendar',13)+fmt(p.date)+'</span><span>'+ic('camera',13)+BYLINE+'</span></p>'+phDiv(p)+'<button class="btn" data-lic="'+p.title+'">'+ic('tag',14)+'Acheter / Demander les droits d'utilisation</button>');return}
+  if(t.dataset.del){if(confirm('Supprimer cet élément?')){CUSTOM[t.dataset.k]=CUSTOM[t.dataset.k].filter(x=>x.id!==t.dataset.del);save();renderAll();toast('Supprimé')}return}
+  if(t.dataset.add){addForm(t.dataset.add);return}
+  if(t.id==='quitEdit'){EDIT=false;renderAll();toast('Mode édition quitté');return}
   if(t.closest('#navLinks a')){document.querySelectorAll('#navLinks a').forEach(a=>a.classList.remove('on'));t.closest('a').classList.add('on');$('#navLinks').classList.remove('open')}
 });
 $('#adminBtn').onclick=adminClick;
 $('#burger').onclick=()=>$('#navLinks').classList.toggle('open');
 $('#conForm').addEventListener('submit',e=>{e.preventDefault();
-  const s=`[${$('#cSub').value}] — ${$('#cName').value}`;
-  const b=`Nom: ${$('#cName').value}%0ACourriel: ${$('#cMail').value}%0A%0A${encodeURIComponent($('#cMsg').value)}`;
-  location.href=`mailto:${EMAIL}?subject=${encodeURIComponent(s)}&body=${b}`;toast('Message prêt à envoyer ✔')});
+  const s='['+$('#cSub').value+'] — '+$('#cName').value;
+  const b='Nom: '+$('#cName').value+'%0ACourriel: '+$('#cMail').value+'%0A%0A'+encodeURIComponent($('#cMsg').value);
+  location.href='mailto:'+EMAIL+'?subject='+encodeURIComponent(s)+'&body='+b;toast('Message prêt à envoyer')});
 
-/* ---------- effets signature ---------- */
-$('#todayDate').textContent=new Intl.DateTimeFormat('fr-CA',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
-$('#mailTxt').textContent=EMAIL;
-(function scramble(){
-  if(RM)return;const el=$('#mastTitle');const fin='N_HEBERT2';const chars='█▓▒░<>/#01';let f=0;
-  const iv=setInterval(()=>{f++;
-    el.innerHTML=fin.split('').map((c,i)=>i===1?'<em>_</em>':(i<f?c:chars[Math.floor(Math.random()*chars.length)])).join('');
-    if(f>=fin.length)clearInterval(iv)},70);
-})();
-
+/* =============== INIT =============== */
+$('#todayDate').innerHTML=ic('calendar',13)+' '+new Intl.DateTimeFormat('fr-CA',{weekday:'long',day:'numeric',month:'long',year:'numeric'}).format(new Date());
+$('#adminBtn').insertAdjacentHTML('afterbegin',ic('lock',13));
+$('#burger').innerHTML=ic('menu',22);
+$('#mX').innerHTML=ic('x',16);
+$('#tagline').insertAdjacentHTML('afterbegin',ic('newspaper',14));
+$('#hBrief').innerHTML=ic('file',15)+'En bref';
+$('#hPop').innerHTML=ic('star',15)+'Articles populaires';
+$('#hTip').innerHTML=ic('send',15)+'Le coin du lecteur';
+$('#kNews').innerHTML=ic('newspaper',14)+'Actualités';
+$('#kGal').innerHTML=ic('camera',14)+'Photographies';
+$('#kUrg').innerHTML=ic('siren',14)+'Services d'urgence';
+$('#kEv').innerHTML=ic('calendar',14)+'Événements';
+$('#kInt').innerHTML=ic('mic',14)+'Entrevues';
+$('#kSell').innerHTML=ic('banknote',14)+'Section professionnelle';
+$('#kAbout').innerHTML=ic('user',14)+'À propos';
+$('#kCon').innerHTML=ic('mail',14)+'Nous contacter';
+$('#portraitArt').innerHTML=ic('camera',52);
+$('#f1').insertAdjacentHTML('afterbegin',ic('pin',15));
+$('#f2').insertAdjacentHTML('afterbegin',ic('siren',15));
+$('#f3').insertAdjacentHTML('afterbegin',ic('calendar',15));
+$('#f4').insertAdjacentHTML('afterbegin',ic('clock',15));
+$('#sl1').insertAdjacentHTML('afterbegin',ic('check',15));
+$('#sl2').insertAdjacentHTML('afterbegin',ic('check',15));
+$('#sl3').insertAdjacentHTML('afterbegin',ic('check',15));
+$('#gear').insertAdjacentHTML('afterbegin',ic('camera',15)+' ');
+$('#ciH').innerHTML=ic('mail',15)+'Coordonnées';
+$('#ciMail').innerHTML=ic('mail',15)+'<span id="mailTxt">'+EMAIL+'</span>';
+$('#ciLoc').innerHTML=ic('pin',15)+'Québec, Canada';
+$('#ciSoc').innerHTML=ic('users',15)+'Facebook / Instagram : @N_HEBERT2';
+$('#ciHrs').innerHTML=ic('clock',15)+'Disponible jour, nuit et fin de semaine';
+$('#ciMed').innerHTML=ic('banknote',15)+'Pour les médias';
 renderAll();observe();
 </script>
 </body>
