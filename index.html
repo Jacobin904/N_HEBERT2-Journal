@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>N_hebert2 — Journal en ligne</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23000000'/><text x='32' y='44' font-family='Georgia,serif' font-size='38' fill='white' text-anchor='middle'>N</text><circle cx='32' cy='53' r='3.5' fill='%23d2a74b'/></svg>">
+<link rel="icon" href="https://cdn.discordapp.com/attachments/1395812809366966403/1536784370214506607/0974951d-22a4-4bbf-9307-af2539661e41.png?ex=6a7ca979&is=6a7b57f9&hm=5eb574b1cf61e6955d4fd62d573e2a0f1e86e67264880d28cfa831d699a77f5e&animated=true">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Michroma&family=Archivo:wght@400;500;600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
 <style>
@@ -37,11 +37,12 @@ a{color:var(--txt)}
 #adminBtn:hover{border-color:var(--gold);color:var(--gold)}
 
 /* ---------- masthead / logo ---------- */
-.masthead{padding:44px 20px 30px;text-align:center;border-bottom:1px solid var(--line);background:radial-gradient(80% 100% at 50% 0%,#131315 0%,var(--bg) 70%)}
+.masthead{padding:38px 20px 30px;text-align:center;border-bottom:1px solid var(--line);background:radial-gradient(80% 100% at 50% 0%,#131315 0%,var(--bg) 70%)}
+#logoImg{width:min(420px,78vw);height:auto;margin:0 auto}
 .logo-cam{position:relative;width:min(300px,64vw);margin:0 auto}
 .logo-cam svg{width:100%;display:block}
 .logo-n{position:absolute;left:50%;top:60%;transform:translate(-58%,-52%);font:600 clamp(4.5rem,17vw,7.5rem)/1 var(--serif);color:#fff;text-shadow:0 2px 24px rgba(0,0,0,.8);pointer-events:none}
-.logo-word{font-family:var(--disp);font-size:clamp(1.15rem,4.5vw,1.9rem);letter-spacing:.14em;color:#fff;margin-top:14px;text-transform:none}
+.logo-word{font-family:var(--disp);font-size:clamp(1.15rem,4.5vw,1.9rem);letter-spacing:.14em;color:#fff;margin-top:14px}
 .logo-word .gold{color:var(--gold)}
 .logo-div{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:12px}
 .logo-div .ln{width:min(110px,22vw);height:2px;background:linear-gradient(90deg,transparent,var(--gold))}
@@ -306,10 +307,13 @@ footer{background:#000;color:var(--mut);margin-top:70px;border-top:1px solid var
   <button id="adminBtn">Espace journaliste</button>
 </div></header>
 
-<!-- LOGO : pour utiliser le PNG officiel plutot que la version vectorielle,
-     remplace tout le bloc .logo-lock ci-dessous par : <img src="logo.png" alt="N_hebert2" style="width:min(340px,80vw);margin:0 auto"> -->
 <div class="masthead">
-  <div class="logo-lock">
+  <!-- LOGO OFFICIEL : pour le rendre permanent, telecharge l'image sous le nom logo.png
+       et remplace le src ci-dessous par "logo.png" -->
+  <img id="logoImg" alt="N_hebert2 — Photographe"
+    src="https://cdn.discordapp.com/attachments/1395812809366966403/1536784370214506607/0974951d-22a4-4bbf-9307-af2539661e41.png?ex=6a7ca979&is=6a7b57f9&hm=5eb574b1cf61e6955d4fd62d573e2a0f1e86e67264880d28cfa831d699a77f5e&animated=true">
+  <!-- secours vectoriel, visible seulement si le lien Discord ET logo.png echouent -->
+  <div id="logoVec" style="display:none">
     <div class="logo-cam">
       <svg viewBox="0 0 200 140" fill="none" stroke="#f4f2ec" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M64 40 L76 18 h48 L136 40"/>
@@ -492,8 +496,8 @@ footer{background:#000;color:var(--mut);margin-top:70px;border-top:1px solid var
 
 <script>
 /* =============== CONFIG =============== */
-const EMAIL = 'contact@nhebert2.ca';   // <- vrai courriel de Nathan ici
-const ADMIN_CODE = 'NHEBERT2';         // <- code de l'Espace journaliste
+const EMAIL = 'nhebertphotographe@gmail.com';   // <- vrai courriel de Nathan ici
+const ADMIN_CODE = 'Nathanlol1@';         // <- code de l'Espace journaliste
 const BYLINE = 'Nathan Hébert-Labelle';
 
 /* =============== ICONES SVG =============== */
@@ -795,7 +799,7 @@ $('#todayDate').innerHTML=ic('calendar',13)+' '+new Intl.DateTimeFormat('fr-CA',
 $('#adminBtn').insertAdjacentHTML('afterbegin',ic('lock',13));
 $('#burger').innerHTML=ic('menu',22);
 $('#mX').innerHTML=ic('x',16);
-$('#aperture').innerHTML=ic('aperture',20);
+const ap=$('#aperture'); if(ap)ap.innerHTML=ic('aperture',20);
 $('#hBrief').innerHTML=ic('file',15)+'En bref';
 $('#hPop').innerHTML=ic('star',15)+'Articles populaires';
 $('#hTip').innerHTML=ic('send',15)+'Le coin du lecteur';
@@ -822,6 +826,19 @@ $('#ciLoc').innerHTML=ic('pin',15)+'Québec, Canada';
 $('#ciSoc').innerHTML=ic('users',15)+'Facebook / Instagram : @n_hebert2';
 $('#ciHrs').innerHTML=ic('clock',15)+'Disponible jour, nuit et fin de semaine';
 $('#ciMed').innerHTML=ic('banknote',15)+'Pour les médias';
+
+/* Logo : si le lien Discord meurt un jour, essaie logo.png, puis secours vectoriel */
+(function(){
+  const logo=document.getElementById('logoImg');
+  logo.addEventListener('error',function h1(){
+    logo.removeEventListener('error',h1);
+    logo.src='logo.png';
+    logo.addEventListener('error',function(){
+      logo.style.display='none';
+      document.getElementById('logoVec').style.display='block';
+    });
+  });
+})();
 renderAll();observe();
 </script>
 </body>
